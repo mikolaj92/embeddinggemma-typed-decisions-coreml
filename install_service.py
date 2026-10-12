@@ -15,6 +15,11 @@ def main():
     from integrity import package_sha256
     if report.get("passed") is not True or report.get("encoder_sha256") != package_sha256(root/"artifacts"):
         raise RuntimeError("Real-weight parity must pass for this exact package before service installation")
+    manifest=json.loads((root/"artifacts"/"manifest.json").read_text())
+    if manifest["max_tokens"]>512:
+        long=json.loads((root/"artifacts"/"validation-long.json").read_text())
+        if long.get("passed") is not True or long.get("encoder_sha256") != package_sha256(root/"artifacts"):
+            raise RuntimeError("Long-context parity must pass for this exact package")
     state=Path.home()/".config"/"typed-decisions"; state.mkdir(parents=True,exist_ok=True); state.chmod(0o700)
     key=state/"api-key"
     if not key.exists():

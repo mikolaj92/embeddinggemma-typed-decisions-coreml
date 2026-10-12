@@ -43,8 +43,8 @@ def rotate(x):
 class FixedEncoder(nn.Module):
     def __init__(self, text_model, size):
         super().__init__()
-        if size > 512:
-            raise ValueError("This adaptation only supports <=512, where all local windows cover the sequence")
+        if size not in (512, 1024, 2048):
+            raise ValueError("Supported fixed shapes: 512, 1024, 2048")
         self.size = size
         self.layers = text_model.layers
         self.ple = text_model.ple
@@ -52,6 +52,9 @@ class FixedEncoder(nn.Module):
         self.projection = text_model.embedding_projection
         cfg = text_model.config
         self.types = cfg.layer_types
+        positions = torch.arange(size)
+        local = (positions[:, None] - positions[None, :]).abs() > cfg.sliding_window
+        self.register_buffer("local_bias", local.float().unsqueeze(0) * -10000.0)
         self.rope = nn.ParameterDict()
         for typ in sorted(set(self.types)):
             inv = getattr(text_model.rotary_emb, typ + "_inv_freq")
@@ -76,6 +79,7 @@ class FixedEncoder(nn.Module):
             vs = a.v_proj(h).split(d,dim=-1)
             cos = self.rope[self.types[i]+"_cos"]
             sin = self.rope[self.types[i]+"_sin"]
+            layer_bias = bias + self.local_bias if self.types[i] == "sliding_attention" else bias
             heads = []
             for j,q in enumerate(qs):
                 k = a.k_norm(ks[j//a.num_key_value_groups])
@@ -83,7 +87,7 @@ class FixedEncoder(nn.Module):
                 q = a.q_norm(q)
                 q = q*cos + rotate(q)*sin
                 k = k*cos + rotate(k)*sin
-                scores = q @ k.transpose(-1,-2) + bias
+                scores = q @ k.transpose(-1,-2) + layer_bias
                 probs = F.softmax(scores,dim=-1)
                 heads.append(probs @ v)
             attended = a.o_proj(torch.cat(heads,dim=-1))
@@ -116,7 +120,9 @@ def main():
     save_file({k:v.contiguous() for k,v in model.state_dict().items() if k.startswith("head.") or k=="temperatures"},root/"head.safetensors")
     text=model.encoder.language_model
     wrapper=FixedEncoder(text,args.size).eval()
-    batch=tokenizer("task: classification | query: This is a conversion sanity check.",padding="max_length",max_length=args.size,return_tensors="pt")
+    # Real tokens spanning the local-window boundary, not just a short padded input.
+    sanity="task: classification | query: " + "Check constraints and review documents. " * (args.size//8)
+    batch=tokenizer(sanity,padding="max_length",truncation=True,max_length=args.size,return_tensors="pt")
     embeds=model.get_input_embeddings()(batch["input_ids"]).detach()
     mask=batch["attention_mask"].to(torch.int32)
     with torch.no_grad():
@@ -140,7 +146,13 @@ def main():
     converted.short_description="Core ML adaptation of mrm8488 EmbeddingGemma 2 typed decisions encoder (no training)."
     converted.author="Model: mrm8488; base: Google; adaptation: mikolaj92"
     converted.license="Apache-2.0"
-    converted.save(str(root/"Encoder.mlpackage"))
-    (root/"manifest.json").write_text(json.dumps({"source":SOURCE,"source_revision":REVISION,"max_tokens":args.size,"buckets":[args.size],"compute_units":"CPU_AND_NE","ane_placement_verified":False},indent=2)+"\n")
+    filename=f"Encoder{args.size}.mlpackage"
+    converted.save(str(root/filename))
+    manifest_path=root/"manifest.json"
+    manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+    models=manifest.get("models", {str(n):"Encoder.mlpackage" for n in manifest.get("buckets",[])})
+    models[str(args.size)]=filename
+    buckets=sorted(map(int,models))
+    manifest_path.write_text(json.dumps({"source":SOURCE,"source_revision":REVISION,"max_tokens":max(buckets),"buckets":buckets,"models":models,"compute_units":"CPU_AND_NE","ane_placement_verified":False},indent=2)+"\n")
     print("Export complete. Neural Engine placement and numerical parity still require validation.",flush=True)
 if __name__=="__main__": main()

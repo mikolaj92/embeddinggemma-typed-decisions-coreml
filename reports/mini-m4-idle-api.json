@@ -1,0 +1,17 @@
+{
+  "host": "mini-m4-0",
+  "idle_cycles": 6,
+  "idle_seconds_each": 20,
+  "accepted_rendered_state_tokens": [
+    513,
+    1536,
+    2048
+  ],
+  "rejected_rendered_state_tokens": 2049,
+  "rejected_status": 422,
+  "pid_stable": true,
+  "pid": 65777,
+  "observed_rss_kib": 525600,
+  "passed": true,
+  "notes": "Observed after persistent input-buffer workaround. RSS is one service process snapshot, not total Core ML system memory. Numeric parity evidence is separate."
+}

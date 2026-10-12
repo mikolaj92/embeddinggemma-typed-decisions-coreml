@@ -59,6 +59,7 @@ def main():
     (args.artifacts/"reference_cases.json").write_text(json.dumps({"texts":texts,"cases":rows},ensure_ascii=False,indent=2))
     if args.reference_only: return
     runtime=DecisionRuntime(args.artifacts)
+    lengths=[len(tokenizer(ref.config.prompt+t,add_special_tokens=True)["input_ids"]) for t in texts]
     start=time.perf_counter(); actual=runtime.encode(texts).numpy(); elapsed=time.perf_counter()-start
     if not np.isfinite(actual).all(): raise RuntimeError("non-finite encoder")
     cos=(expected*actual).sum(-1)/(np.linalg.norm(expected,axis=-1)*np.linalg.norm(actual,axis=-1))
@@ -68,7 +69,7 @@ def main():
         for qid,out in answer.items():
             gold=row["reference"][qid]; matches+=out["label"]==gold["label"]; total+=1
             diffs += [abs(out["probabilities"][k]-p) for k,p in gold["probabilities"].items()]
-    try: runtime.encode(["token "*2000])
+    try: runtime.encode(["token "*(runtime.max_tokens*2)])
     except RequestError: overlength_rejected=True
     else: overlength_rejected=False
     report={"host":platform.node(),"platform":platform.platform(),"encoder_texts":len(texts),"cosine_min":float(cos.min()),"cosine_mean":float(cos.mean()),"max_embedding_abs_error":float(np.abs(expected-actual).max()),"probability_max_abs_error":max(diffs),"label_matches":matches,"questions":total,"encode_seconds":elapsed,"overlength_rejected":overlength_rejected,"compute_units":"CPU_AND_NE","ane_placement_verified":False,"passed":bool(cos.min()>=0.998 and max(diffs)<=0.03 and matches==total and overlength_rejected)}

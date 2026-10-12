@@ -9,8 +9,10 @@ Thanks to [FluidInference](https://huggingface.co/FluidInference/embeddinggemma-
 ## Scope and limits
 
 - Text only; typed choice / score / yes-no answers with probabilities, not generated text.
-- **512 tokens per rendered text**, including task prefix and special tokens. Longer inputs are rejected, never silently truncated or chunk-averaged. Original model supports 8192; this adaptation does not.
+- **2048 tokens per rendered text**, including task prefix and special tokens. Fixed buckets **512 / 1024 / 2048** select the smallest fitting model independently for each state/question/option. Longer inputs are rejected, never silently truncated or chunk-averaged. Original model supports 8192; this adaptation does not.
+- Local layers use bidirectional distance **<=512** (distance512 included,513 excluded); full attention stays global in layers5/11/17/23. Dense masks preserve semantics but do not provide sparse-attention speedups. Fixed models duplicate encoder weights, trading disk/memory for predictable shapes.
 - FP16 Core ML encoder with max-abs RMSNorm/L2 rescaling and mean weights applied before reduction. Native PyTorch FP16 is unsafe; this separate graph adaptation requires parity tests.
+- Runtime retains and reuses one input-buffer pair per bucket. coremltools9 wraps NumPy input arrays in Objective-C objects; on this macOS build delayed Core ML reset triggered a native `_PyObject_Free` SIGSEGV when short-lived input arrays lost their final reference. Persistent buffers avoid that deallocation path; `verify_idle_api.py` exercises mixed-bucket HTTP requests,20-second idle cleanup and PID stability. This is a targeted workaround, not an upstream library fix.
 - CPU_AND_NE allows Neural Engine **and CPU fallback**. Compute-plan reports describe anticipated placement, not execution traces or wall-clock percentages.
 - Approximate numeric parity; near-tied decisions can change. Not a substitute for hard safety rules or human authorization.
 - Multilingual model, English-trained decision schemas. Validate Polish workflows separately.
@@ -23,13 +25,14 @@ Install [uv](https://docs.astral.sh/uv/), then:
 ```sh
 uv sync --frozen
 uv run python download.py
-uv run python convert.py
+for size in 512 1024 2048; do uv run python convert.py --size "$size"; done
 uv run python validate.py
+uv run python validate_long.py
 uv run python placement.py
 uv run pytest -q
 ```
 
-Checkpoint pinned to **09fc4497a95529ec66842caac291e21c62490fab**. Downloaded custom Python is executed locally; review it first. Artifacts are trusted local build products, not an untrusted-upload format. No latest-revision downloads at startup. Large weights/packages are excluded from Git.
+Checkpoint pinned to **09fc4497a95529ec66842caac291e21c62490fab**. Report hashes bind the selected Core ML encoder packages and bucket mapping only, not the entire head/tokenizer/table/custom-code pipeline; all artifacts must remain trusted local build products. Downloaded custom Python is executed locally; review it first. Artifacts are trusted local build products, not an untrusted-upload format. No latest-revision downloads at startup. Large weights/packages are excluded from Git.
 
 Validation compares real fine-tuned PyTorch FP32 weights with Core ML encoder + CPU head, checks all three types, multilingual/repeated-token/exact-512 examples and overlength rejection. artifacts/validation.json is bound to the encoder package SHA256. This is a small parity suite, **not a task-quality or safety benchmark**.
 
@@ -53,10 +56,18 @@ uv run python smoke.py
 
 Creates a per-user LaunchAgent and a random credential in a private user config directory, not Git or the plist. Refuses to overwrite an installation. Starts at user login, not before login. Trusted LAN deployment can pass --host 0.0.0.0 deliberately; the service does not supply TLS. Existing embeddings need not be modified or stopped.
 
+## Upgrade an existing service safely
+
+Build new packages into a separate artifact directory (the local deployment uses artifacts-long). Run validate.py and validate_long.py with --artifacts pointing there, then placement.py. Both parity reports must bind to the exact selected model hashes. Use `uv run python switch_artifacts.py artifacts-long` to switch the LaunchAgent, retain the old run script and automatically restore it if readiness fails. Existing artifact packages remain available for rollback. `smoke_long.py` verifies the installed endpoint accepts exactly513/1536/2048 tokens and rejects2049 **after state rendering, task prefix and special tokens**. The switch also checks health buckets/max_tokens and runs six authenticated mixed-bucket smoke cycles with20-second idle periods and PID stability checks inside its rollback-protected section. A readiness response alone does not verify the served bucket configuration; use the smoke test.
+
 ## License and attribution
 
 Apache-2.0; see LICENSE and NOTICE. Architecture adaptation based on Transformers, Copyright 2026 HuggingFace Team. Not endorsed by Google, mrm8488, Hugging Face or FluidInference. Preserve attribution in derived packages.
 
 ## Measurements
+
+Long-context adaptation on Mac mini M4: all seven embedding boundary cases pass (32/512/513/1024/1025/1536/2048), minimum cosine0.999897. All9 long-state question labels agree, maximum probability difference0.002599 (0.260 percentage points). Median warm per-text encode latency,3 repetitions: bucket512 ~29ms,1024 ~82ms,2048 ~265ms. These timings include tokenizer/table lookup/Core ML; not whole-decision request time. Combined validation process peak RSS ~6.05GiB includes the full PyTorch reference encoder and all Core ML models, **not service-only memory**. For **each bucket** the anticipated Core ML plan assigns6758 non-constant operations to Neural Engine and one input cast to CPU (not a hardware execution trace). First load/compile measurements were approximately28/38/56 seconds; startup is intentionally slower than warm inference. 24 unit/behavioral tests pass. The deployed service passed six HTTP boundary/idle cycles,20seconds each, with a stable PID after the persistent-buffer workaround. One observed service RSS snapshot was ~513MiB; this excludes memory in Core ML system services. Reports under reports/mini-m4-long-*.json and reports/mini-m4-idle-api.json.
+
+Previous single-bucket baseline (retained for comparison):
 
 Validated on Mac mini M4 (16 GB), macOS 27.0.1: 121 encoder texts including exact 512-token inputs, minimum cosine 0.9998648, mean cosine 0.9999855; 27/27 question labels agree; maximum probability difference 0.006463 (0.6463 percentage points). The anticipated compute plan assigns 6757 non-constant operations to Neural Engine and one cast to CPU; this is not measured runtime utilization. 21 behavioral/numerical tests pass. Target-device reports in reports/. Unit tests substitute only the hardware encoder; real-weight comparisons use actual Core ML. Placement is the anticipated Core ML plan, not execution profiling. No new-model accuracy claims.

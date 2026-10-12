@@ -1,0 +1,88 @@
+{
+  "host": "mini-m4-0.localdomain",
+  "compute_units": "CPU_AND_NE",
+  "measurement": "Core ML anticipated compute plan (not execution trace)",
+  "ane_placement_verified": false,
+  "compile_time_measurement": "MLModel load/compile wall time; excludes compute-plan inspection",
+  "encoder_sha256": "df7533092d686e0c174320802edb9661e2ba05f17d11027d4cbc0bfe90da772c",
+  "models": {
+    "512": {
+      "package_sha256": "fdba63ec38a043a47184caa1f78280b3e6004c31024965b88ea7e6247f02f9ee",
+      "preferred_devices": {
+        "MLCPUComputeDevice": 1,
+        "MLNeuralEngineComputeDevice": 6758
+      },
+      "non_ane_operations": [
+        {
+          "operator": "ios18.cast",
+          "device": "MLCPUComputeDevice"
+        }
+      ],
+      "total_operations": 6759,
+      "constants_excluded": 5431,
+      "compile_seconds": 27.699286292074248,
+      "bucket": 512,
+      "package": "Encoder512.mlpackage"
+    },
+    "1024": {
+      "package_sha256": "06b561324ad5fb6ebad2c5f0c0dab2eecee25849dac331885171d3b927f6d22c",
+      "preferred_devices": {
+        "MLCPUComputeDevice": 1,
+        "MLNeuralEngineComputeDevice": 6758
+      },
+      "non_ane_operations": [
+        {
+          "operator": "ios18.cast",
+          "device": "MLCPUComputeDevice"
+        }
+      ],
+      "total_operations": 6759,
+      "constants_excluded": 5431,
+      "compile_seconds": 38.319213708047755,
+      "bucket": 1024,
+      "package": "Encoder1024.mlpackage"
+    },
+    "2048": {
+      "package_sha256": "aebc898b091048af05406709a24e34ee5d238d55d24e01124965bb8abed84696",
+      "preferred_devices": {
+        "MLCPUComputeDevice": 1,
+        "MLNeuralEngineComputeDevice": 6758
+      },
+      "non_ane_operations": [
+        {
+          "operator": "ios18.cast",
+          "device": "MLCPUComputeDevice"
+        }
+      ],
+      "total_operations": 6759,
+      "constants_excluded": 5431,
+      "compile_seconds": 55.9751726660179,
+      "bucket": 2048,
+      "package": "Encoder2048.mlpackage"
+    }
+  },
+  "preferred_devices": {
+    "MLCPUComputeDevice": 3,
+    "MLNeuralEngineComputeDevice": 20274
+  },
+  "non_ane_operations": [
+    {
+      "operator": "ios18.cast",
+      "device": "MLCPUComputeDevice",
+      "bucket": 512
+    },
+    {
+      "operator": "ios18.cast",
+      "device": "MLCPUComputeDevice",
+      "bucket": 1024
+    },
+    {
+      "operator": "ios18.cast",
+      "device": "MLCPUComputeDevice",
+      "bucket": 2048
+    }
+  ],
+  "total_operations": 20277,
+  "constants_excluded": 16293,
+  "compile_seconds": 121.9936726661399
+}

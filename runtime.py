@@ -219,6 +219,11 @@ class DecisionRuntime:
         if len(self.buckets) > 1 and not files:
             raise ValueError("multiple buckets require models mapping")
         self.models = {}
+        # coremltools9 retains py::array inside an Objective-C MLMultiArray.
+        # Core ML can release that wrapper later on a native reset queue without
+        # Python GIL. Keep these arrays owned by Python for the runtime lifetime
+        # so delayed native decref is not the final object deallocation.
+        self._input_buffers = {}
         for bucket in self.buckets:
             filename = files.get(str(bucket), "Encoder.mlpackage")
             path = (self.artifacts / filename).resolve()
@@ -227,6 +232,10 @@ class DecisionRuntime:
             self.models[bucket] = ct.models.MLModel(
                 str(path), compute_units=ct.ComputeUnit.CPU_AND_NE
             )
+            self._input_buffers[bucket] = {
+                "embeddings": np.zeros((1, bucket, 512), dtype=np.float32),
+                "attention_mask": np.zeros((1, bucket), dtype=np.int32),
+            }
         self._lock = threading.Lock()
 
     def encode(self, texts: list[str]) -> torch.Tensor:
@@ -269,9 +278,10 @@ class DecisionRuntime:
             )
             _finite(embeddings, "token embeddings")
             mask = np.asarray(padded["attention_mask"], dtype=np.int32)
-            output = self.models[bucket].predict(
-                {"embeddings": embeddings, "attention_mask": mask}
-            )
+            buffers = self._input_buffers[bucket]
+            np.copyto(buffers["embeddings"], embeddings)
+            np.copyto(buffers["attention_mask"], mask)
+            output = self.models[bucket].predict(buffers)
             embedding = np.asarray(output["sentence_embedding"], dtype=np.float32)
             if embedding.shape != (1, self.config["embed_dim"]):
                 raise InferenceError("unexpected encoder output shape")

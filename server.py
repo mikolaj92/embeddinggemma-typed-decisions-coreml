@@ -111,11 +111,11 @@ app.add_middleware(DecisionBoundary)
 
 @app.get("/health")
 def health():
-    return {
-        "status": "ok",
-        "ready": getattr(app.state, "runtime", None) is not None
-        and bool(getattr(app.state, "api_key", "")),
-    }
+    runtime = getattr(app.state, "runtime", None)
+    result = {"status": "ok", "ready": runtime is not None and bool(getattr(app.state, "api_key", ""))}
+    if runtime is not None and hasattr(runtime, "buckets"):
+        result.update(max_tokens=runtime.max_tokens, buckets=runtime.buckets)
+    return result
 
 
 @app.post("/v1/decisions", response_model=dict[str, Answer])

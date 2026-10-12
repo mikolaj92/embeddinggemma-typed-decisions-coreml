@@ -88,6 +88,7 @@ def runtime(tmp_path, monkeypatch):
         def __init__(self, path, compute_units):
             assert compute_units == "cpu_and_ne"
             self.calls = []
+            self.input_ids = []
             self.output = np.array([[0.1, 0.2, 0.3, 0.4]], dtype=np.float32)
             self.active = 0
             self.max_active = 0
@@ -100,7 +101,8 @@ def runtime(tmp_path, monkeypatch):
             self.max_active = max(self.max_active, self.active)
             try:
                 time.sleep(self.delay)
-                self.calls.append(inputs)
+                self.input_ids.append(tuple(id(inputs[k]) for k in ["embeddings","attention_mask"]))
+                self.calls.append({k:v.copy() for k,v in inputs.items()})
                 output = self.output.copy()
                 if self.distinct:
                     index = len(self.calls)
@@ -189,15 +191,34 @@ def test_encoder_preserves_specials_padding_scale_and_rejects_overflow(runtime):
     assert actual["attention_mask"].dtype == np.int32
     runtime.encode(["short short short short short"])
     assert len(model.calls) == 2  # exactly eight tokens including task+BOS+EOS
+    assert model.input_ids[0] == model.input_ids[1]  # native resets never own the last Python array reference
     with pytest.raises(RequestError, match="max_tokens"):
         runtime.encode(["short", "short short short short short short"])
     assert len(model.calls) == 2  # fail before any partial prediction
+
+
+def test_encoder_selects_smallest_bucket_and_rejects_2049(runtime):
+    encoder_type=type(runtime.models[8])
+    runtime.max_tokens=2048
+    runtime.buckets=[512,1024,2048]
+    runtime.models={n:encoder_type(str(n),"cpu_and_ne") for n in runtime.buckets}
+    runtime._input_buffers={n:{"embeddings":np.zeros((1,n,512),dtype=np.float32),"attention_mask":np.zeros((1,n),dtype=np.int32)} for n in runtime.buckets}
+    for length in [512,513,1024,1025,2048]:
+        runtime.encode(["short "*(length-3)])
+        bucket=next(n for n in runtime.buckets if length<=n)
+        assert runtime.models[bucket].calls[-1]["attention_mask"].shape==(1,bucket)
+        assert runtime.models[bucket].calls[-1]["attention_mask"].sum()==length
+    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1,2,2]
+    with pytest.raises(RequestError,match="max_tokens"):
+        runtime.encode(["short "*2046])
+    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1,2,2]
 
 
 def test_typed_decisions_use_upstream_head_and_calibration(runtime):
     runtime.max_tokens = 128
     runtime.buckets = [128]
     runtime.models[128] = runtime.models.pop(8)
+    runtime._input_buffers[128]={"embeddings":np.zeros((1,128,512),dtype=np.float32),"attention_mask":np.zeros((1,128),dtype=np.int32)}
     questions = {
         "pick": {"type": "choice", "criteria": ["a", "b", "c"]},
         "risk": {"type": "score", "criteria": {"5": "high", "1": "low"}},

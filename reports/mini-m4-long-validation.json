@@ -1,0 +1,149 @@
+{
+  "host": "mini-m4-0.localdomain",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "buckets": [
+    512,
+    1024,
+    2048
+  ],
+  "max_tokens": 2048,
+  "boundary_embeddings": [
+    {
+      "tokens": 32,
+      "bucket": 512,
+      "cosine": 0.9999860525131226,
+      "max_abs_error": 0.0006299698725342751,
+      "warm_seconds_median": 0.029354332946240902,
+      "passed": true
+    },
+    {
+      "tokens": 512,
+      "bucket": 512,
+      "cosine": 0.9999454021453857,
+      "max_abs_error": 0.0013525839895009995,
+      "warm_seconds_median": 0.029691874980926514,
+      "passed": true
+    },
+    {
+      "tokens": 513,
+      "bucket": 1024,
+      "cosine": 0.9999362230300903,
+      "max_abs_error": 0.0013977233320474625,
+      "warm_seconds_median": 0.0815874160034582,
+      "passed": true
+    },
+    {
+      "tokens": 1024,
+      "bucket": 1024,
+      "cosine": 0.9998970031738281,
+      "max_abs_error": 0.0015574190765619278,
+      "warm_seconds_median": 0.0823678330052644,
+      "passed": true
+    },
+    {
+      "tokens": 1025,
+      "bucket": 2048,
+      "cosine": 0.9998979568481445,
+      "max_abs_error": 0.0016772449016571045,
+      "warm_seconds_median": 0.26403729198500514,
+      "passed": true
+    },
+    {
+      "tokens": 1536,
+      "bucket": 2048,
+      "cosine": 0.9999170303344727,
+      "max_abs_error": 0.0015024244785308838,
+      "warm_seconds_median": 0.2653921670280397,
+      "passed": true
+    },
+    {
+      "tokens": 2048,
+      "bucket": 2048,
+      "cosine": 0.9999134540557861,
+      "max_abs_error": 0.0015285806730389595,
+      "warm_seconds_median": 0.26532000000588596,
+      "passed": true
+    }
+  ],
+  "long_decisions": [
+    {
+      "state_base_tokens": 513,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.0007315278053283691,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 513,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0008851885795593262,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 513,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.000527501106262207,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.0013287067413330078,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0013319849967956543,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.0020509958267211914,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.001223921775817871,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0025988221168518066,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.0010429620742797852,
+      "passed": true
+    }
+  ],
+  "overlength_2049_rejected": true,
+  "process_peak_rss_bytes": 6629376000,
+  "encoder_sha256": "df7533092d686e0c174320802edb9661e2ba05f17d11027d4cbc0bfe90da772c",
+  "source_revision": "09fc4497a95529ec66842caac291e21c62490fab",
+  "compute_units": "CPU_AND_NE",
+  "ane_execution_trace_verified": false,
+  "passed": true
+}
