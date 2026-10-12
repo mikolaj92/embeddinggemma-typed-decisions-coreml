@@ -1,0 +1,56 @@
+[
+  {
+    "workflow": "agent_trace_observability",
+    "state": {
+      "constraint_violations": 1,
+      "execution": {
+        "completed": false,
+        "retries": 2
+      }
+    },
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": "What should the agent do next?",
+        "criteria": {
+          "retry": "Retry the failed operation",
+          "stop": "Stop and report the constraint violation"
+        }
+      },
+      "severity": {
+        "type": "score",
+        "instructions": "Rate the severity.",
+        "criteria": [
+          "No concern",
+          "Minor concern",
+          "Significant concern"
+        ]
+      },
+      "safe": {
+        "type": "noul",
+        "instructions": "Is it safe to continue?"
+      }
+    }
+  },
+  {
+    "workflow": "review",
+    "state": "Tests passed; security review is pending.",
+    "questions": {
+      "release": {
+        "type": "choice",
+        "criteria": [
+          "approve",
+          "hold"
+        ]
+      },
+      "risk": {
+        "type": "score",
+        "instructions": "Assess release risk.",
+        "criteria": {
+          "1": "Low risk",
+          "5": "High risk"
+        }
+      }
+    }
+  }
+]

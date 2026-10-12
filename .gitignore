@@ -1,0 +1,9 @@
+.venv/
+artifacts/
+*.log
+__pycache__/
+.pytest_cache/
+.env
+*.plist
+.DS_Store
+.ruff_cache/

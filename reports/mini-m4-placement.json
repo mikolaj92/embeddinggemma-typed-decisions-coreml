@@ -1,0 +1,17 @@
+{
+  "host": "mini-m4-0.localdomain",
+  "compute_units": "CPU_AND_NE",
+  "measurement": "Core ML anticipated compute plan (not execution trace)",
+  "preferred_devices": {
+    "MLNeuralEngineComputeDevice": 6757,
+    "MLCPUComputeDevice": 1
+  },
+  "non_ane_operations": [
+    {
+      "operator": "ios18.cast",
+      "device": "MLCPUComputeDevice"
+    }
+  ],
+  "total_operations": 6758,
+  "constants_excluded": 5430
+}

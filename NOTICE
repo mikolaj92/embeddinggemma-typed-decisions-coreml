@@ -1,0 +1,23 @@
+EmbeddingGemma 2 typed decisions — Core ML adaptation
+
+Original typed-decision model, fine-tuning, head, calibration and schema rendering:
+mrm8488 (Manuel Romero)
+https://huggingface.co/mrm8488/embeddinggemma-2-ft-typed-decision
+Pinned source: 09fc4497a95529ec66842caac291e21c62490fab
+
+Base EmbeddingGemma 2 model: Google
+https://huggingface.co/google/embeddinggemma-2
+
+Architecture implementation adapted from Hugging Face Transformers
+Copyright 2026 the HuggingFace Team. Apache License 2.0.
+https://github.com/huggingface/transformers/tree/main/src/transformers/models/embedding_gemma2
+
+Acknowledgement: FluidInference Core ML model/runtime demonstrated fixed-shape
+text inference and max-abs normalization for Apple Neural Engine. This project
+does not reuse their base encoder weights or claim their measured placement.
+https://huggingface.co/FluidInference/embeddinggemma-2-coreml
+
+Our changes: fixed-shape Core ML encoder conversion of the existing fine-tuned
+checkpoint, overflow-aware normalization, CPU upstream decision head, local
+authenticated API, validation and deployment tooling. No training, new dataset,
+or authorship claim over the underlying model.

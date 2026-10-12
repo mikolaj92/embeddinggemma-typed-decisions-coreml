@@ -1,0 +1,14 @@
+[project]
+name = "embeddinggemma-typed-decisions-coreml"
+version = "0.1.0"
+description = "Core ML adaptation and local serving of mrm8488 typed decisions; no retraining"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = ["torch==2.14.1", "transformers==5.19.0", "coremltools==9.0", "numpy==2.5.4", "safetensors==0.8.0", "huggingface-hub==2.2.0", "fastapi==0.143.0", "uvicorn==0.54.0"]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "httpx>=0.28,<1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
