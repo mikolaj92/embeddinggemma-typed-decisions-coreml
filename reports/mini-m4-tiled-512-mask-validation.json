@@ -1,0 +1,33 @@
+{
+  "size": 512,
+  "cases": [
+    {
+      "valid": 32,
+      "finite": true,
+      "cosine": 0.9999791979789734,
+      "passed": true
+    },
+    {
+      "valid": 256,
+      "finite": true,
+      "cosine": 0.9999854564666748,
+      "passed": true
+    },
+    {
+      "valid": 257,
+      "finite": true,
+      "cosine": 0.9999850988388062,
+      "passed": true
+    },
+    {
+      "valid": 512,
+      "finite": true,
+      "cosine": 0.9999872446060181,
+      "passed": true
+    }
+  ],
+  "empty_finite": true,
+  "empty_max_abs": 0.0,
+  "passed": true,
+  "production_changed": false
+}
