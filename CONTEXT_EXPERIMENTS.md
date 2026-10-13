@@ -1,0 +1,34 @@
+# Context beyond8192: experimental, not production support
+
+Production remains validated8192. No upstream config, tokenizer, packages or service runner may be changed by experiments.
+
+## Established limits
+
+Pinned decision checkpoint revision09fc4497a95529ec66842caac291e21c62490fab has outer max_seq_length8192. Its encoder text config sets max_position_embeddings262144, default RoPE theta1000000 for full attention and10000 for sliding attention. Thus16k-128k is inside the configured positional ceiling, but outside the advertised embedding context. This is not evidence of trained quality beyond8192. Initial16k probe uses original positions/frequencies, no scaling.
+
+The exporter constructor also transiently creates an int64 NxN distance tensor (2GiB at16k). The exporter materializes a square local mask and square attention scores/probabilities even for local layers.24 layers include four full-attention layers; local window distance512. Mini has16GiB unified RAM.
+
+| Tokens | Single FP16 NxN tensor | Single FP32 NxN tensor | Quadratic work vs8192 |
+|---|---:|---:|---:|
+|8192|0.125GiB|0.25GiB|1x|
+|16384|0.5GiB|1GiB|4x|
+|32768|2GiB|4GiB|16x|
+|65536|8GiB|16GiB|64x|
+|131072|32GiB|64GiB|256x|
+
+These are algebraic single-tensor sizes, not measured peak memory or latency. Multiple temporaries, heads and system compiler allocations increase memory. Exact tiled local/global attention can reduce materialized memory, but full-attention FLOPs remain quadratic. Independently encoding chunks and averaging embeddings is a different algorithm, not full-context support.
+
+Primary sources: [Google model card](https://huggingface.co/google/embeddinggemma-2/raw/main/README.md) explicitly advertises8192; [Google config](https://huggingface.co/google/embeddinggemma-2/raw/main/config.json) has positional ceiling262144. The pinned decision config was independently inspected; a larger positional ceiling is not a claim of long-context training or quality.
+
+## Transport and calibration caveats
+
+Current API body cap262144 bytes and aggregate rendered text cap524288 bytes are independent of token limits. Instructions/criterion strings have8192-character caps. Many64k/128k text requests will exceed the body limit even if the encoder can represent them. Do not weaken these guards automatically; a later explicitly budgeted API transport design must preserve denial-of-service bounds.
+
+The original trained head uses mean-pooled state embeddings and fixed FP32 temperatures. A single important fact can be diluted by long filler. Parity against the reference does not measure task accuracy or calibration. The first probe includes paired truth labels; broader multilingual heldout validation is needed before production approval.
+
+## Stage gates
+
+1. Reference-only16k probe changes max_seq_length in memory, never on disk. Verify full rendered token consumption. Paired safe/unsafe states, varied fillers and beginning/middle/end evidence; compare independent truth labels and identical short-evidence baselines. Wrong short baselines mean the scenario is not a valid long-context success test.
+2. Only after quality evidence, design/export memory-bounded CoreML attention with native-length parity and extended-reference parity. Measure resource peaks and per-text/API timing.
+3. HTTP isolation, idle stability, rollback-preserving production gating. Synthetic probes are limited quality evidence, not a general benchmark. No automatic production cap bump based solely on parity.
+4. Repeat16k→32k→64k→128k; report failed quality/resource gates honestly. Larger contexts may require adaptation training and different compute resources.
