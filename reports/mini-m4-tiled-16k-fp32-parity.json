@@ -1,0 +1,15 @@
+{
+  "tokens": 16384,
+  "consumed_tokens": 16384,
+  "query_tile": 256,
+  "real_weights": true,
+  "FP32": true,
+  "reference_seconds": 34.66718620900065,
+  "tiled_seconds": 18.297117458074354,
+  "cosine": 0.9999998807907104,
+  "max_abs_error": 7.450580596923828e-08,
+  "process_peak_rss_bytes": 9123954688,
+  "passed": true,
+  "quality_approved": false,
+  "production_changed": false
+}

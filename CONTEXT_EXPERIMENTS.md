@@ -32,7 +32,7 @@ The original trained head uses mean-pooled state embeddings and fixed FP32 tempe
 
 ## Tiled pilot status
 
-Standalone experimental_encoder.py changes query computation only: tiles256/512, all global keys, local absolute distance<=512, no square constructor mask, original absolute RoPE and PLE.27 independent tiny-model tests pass on mini, including GQA, window/seams, holes/empty padded tails, valid-output padding isolation. Constructor powers through131072 pass meta-memory allocation checks; this is not real128k inference. No real-weight CoreML export or load measured yet. The pilot is NOT imported by production runtime or converter.
+Standalone experimental_encoder.py changes query computation only: tiles256/512, all global keys, local absolute distance<=512, no square constructor mask, original absolute RoPE and PLE.27 independent tiny-model tests pass on mini, including GQA, window/seams, holes/empty padded tails, valid-output padding isolation. Constructor powers through131072 pass meta-memory allocation checks; this is not real128k inference. Real-weight FP32 comparison at exactly16384 tokens passed: cosine0.99999988,maxabs7.45e-8,tiled18.30s vs reference34.67s for one run; combined process peak8.50GiB, not isolated tiled peak. This repeated-token numerical probe does NOT measure quality or API performance. A native512 tiled CoreML FP16 package exported successfully in29.04s; load/inference gate is pending. The pilot is NOT imported by production runtime or converter.
 
 ## Stage gates
 
