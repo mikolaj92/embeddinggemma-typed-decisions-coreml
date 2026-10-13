@@ -10,7 +10,7 @@ import platform
 import sys
 import time
 from pathlib import Path
-from experiment_context import CASES, FILLER, QUESTIONS, WORKFLOW, checked_features, fit_state, ids_digest, peak_rss_bytes
+from experiment_context import CASES, FILLER, QUESTIONS, WORKFLOW, checked_features, claim_report_output, fit_state, ids_digest, peak_rss_bytes
 
 
 def digest(text):
@@ -22,9 +22,10 @@ def main():
     parser.add_argument("--artifacts", type=Path, default=Path("artifacts-8192"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    artifacts, output = args.artifacts.resolve(), args.output.resolve()
-    if output.is_relative_to(artifacts) or output.suffix.lower() != ".json":
+    artifacts = args.artifacts.resolve()
+    if args.output.resolve().suffix.lower() != ".json":
         parser.error("Output must be a JSON path outside artifacts")
+    output = claim_report_output(parser, artifacts, args.output)
     import torch
     import torch.nn.functional as F
     import transformers

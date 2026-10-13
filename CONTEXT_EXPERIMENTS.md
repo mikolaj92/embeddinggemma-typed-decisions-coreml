@@ -28,6 +28,10 @@ FAILED independent synthetic quality gate: short safe/unsafe evidence2/2 correct
 
 Same contextual already-projected token outputs, original fixed head/question/options/temperature: unsafe full masked mean predicts false, evidence-span mean predicts true, standalone short true. Signed review logit margin full -0.195227, span+0.349894, short+0.110455. This supports an aggregation contribution for this pair, not a general causal verdict. Exact oracle character offsets identify evidence; span pooling is OOD and must NOT become production prediction or a quality approval. Native config unchanged. See diagnostic_pooling.py and reports/mini-m4-pooling-diagnostic.json.
 
+## Matched-prefix filler control
+
+Fixed facts and original full pooling/head/question/temperature, identical filler record sequence/count for safe and unsafe at each count0/1/4/8/16/32. Unsafe is correct evidence-only46 tokens (review logit margin+0.110455), but adding ONE museum record gives75 tokens and false-safe margin-0.165934; all tested nonzero counts remain false-safe. Safe stays correct. Thus this probe failure needs neither long context nor positional extrapolation. Filler sensitivity and aggregation contribution remain limited-pair observations; no general accuracy claim, no calibration or threshold tuning. Evidence lengths differ8tokens, so this is matched filler, not exactly length-matched inputs. See diagnostic_filler_curve.py and reports/mini-m4-matched-filler-curve.json.
+
 ## Transport and calibration caveats
 
 Current API body cap262144 bytes and aggregate rendered text cap524288 bytes are independent of token limits. Instructions/criterion strings have8192-character caps. Many64k/128k text requests will exceed the body limit even if the encoder can represent them. Do not weaken these guards automatically; a later explicitly budgeted API transport design must preserve denial-of-service bounds.

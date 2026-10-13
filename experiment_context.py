@@ -148,6 +148,24 @@ def predict(ref, tokenizer, upstream, state):
             "process_peak_rss_bytes": peak_rss_bytes()}
 
 
+def claim_report_output(parser, artifacts, output):
+    """Reserve a new report without touching artifacts or linked upstream sources."""
+    if output.exists() or output.is_symlink():
+        parser.error("Output must be new (existing files and symlinks are forbidden)")
+    resolved = output.resolve()
+    roots = (artifacts.resolve(), (artifacts / "upstream").resolve())
+    if any(resolved.is_relative_to(root) for root in roots):
+        parser.error("Output must be outside artifacts and the real upstream directory")
+    try:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        # Claim the original path: resolving first could hide a dangling symlink.
+        with output.open("x", encoding="utf-8"):
+            pass
+    except OSError as exc:
+        parser.error(f"Cannot exclusively create output: {exc}")
+    return resolved
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--artifacts", type=Path, default=Path("artifacts-8192"))
@@ -158,11 +176,9 @@ def main():
                         help="Only short truth/equivalence checks; no experimental long allocation")
     args = parser.parse_args()
     artifacts = args.artifacts.resolve()
-    output = args.output.resolve()
-    if output.is_relative_to(artifacts) or output == Path(__file__).resolve():
-        parser.error("Output must be separate from artifacts and this script")
     if not 8192 < args.tokens <= 131072:
         parser.error("Experimental long token budget must be >8192 and <=131072")
+    output = claim_report_output(parser, artifacts, args.output)
 
     # Heavy imports/load occur only after CLI validation; --help performs no inference.
     import torch
