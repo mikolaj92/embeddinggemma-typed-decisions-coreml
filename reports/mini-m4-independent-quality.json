@@ -1,0 +1,1181 @@
+{
+  "scope": "Fixed synthetic gold, frozen before inference; diagnostic not representative deployment approval",
+  "cases_sha256": "e077a1d244985fac91d96529b9c1ce40d88ed2f5acd4e5863041210989c53933",
+  "source": "mrm8488/embeddinggemma-2-ft-typed-decision",
+  "revision": "09fc4497a95529ec66842caac291e21c62490fab",
+  "production_changed": false,
+  "quality_approved": false,
+  "rows": [
+    {
+      "id": "choice_parcel_carrier",
+      "kind": "choice",
+      "filler_records": 0,
+      "gold_label": "atlas",
+      "rationale": "Swift cannot carry 7 kg; Atlas and Cargo can, and Atlas costs 9 euros rather than 15.",
+      "label": "swift",
+      "correct": false,
+      "probabilities": {
+        "swift": 0.34748750925064087,
+        "atlas": 0.3343380391597748,
+        "cargo": 0.31817442178726196
+      },
+      "logits": [
+        18.697872161865234,
+        18.659099578857422,
+        18.609296798706055
+      ],
+      "token_proof": {
+        "untruncated_tokens": 70,
+        "consumed_tokens": 70,
+        "input_shape": [
+          1,
+          70
+        ],
+        "attention_mask_sum": 70,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "68d0fa1ca6e2e0828ee2561748eb1977f55074a462105c040a24257db5241b13",
+        "consumed_ids_sha256": "68d0fa1ca6e2e0828ee2561748eb1977f55074a462105c040a24257db5241b13"
+      },
+      "original_decide_max_probability_error": 8.940696716308594e-07
+    },
+    {
+      "id": "choice_parcel_carrier",
+      "kind": "choice",
+      "filler_records": 1,
+      "gold_label": "atlas",
+      "rationale": "Swift cannot carry 7 kg; Atlas and Cargo can, and Atlas costs 9 euros rather than 15.",
+      "label": "atlas",
+      "correct": true,
+      "probabilities": {
+        "swift": 0.3329508304595947,
+        "atlas": 0.37630173563957214,
+        "cargo": 0.29074737429618835
+      },
+      "logits": [
+        18.561845779418945,
+        18.68486213684082,
+        18.42561912536621
+      ],
+      "token_proof": {
+        "untruncated_tokens": 99,
+        "consumed_tokens": 99,
+        "input_shape": [
+          1,
+          99
+        ],
+        "attention_mask_sum": 99,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "65594519c1e0d728bd38c696d8f61347528dd8a6196e33357776cdeafe77c7a4",
+        "consumed_ids_sha256": "65594519c1e0d728bd38c696d8f61347528dd8a6196e33357776cdeafe77c7a4"
+      }
+    },
+    {
+      "id": "choice_parcel_carrier",
+      "kind": "choice",
+      "filler_records": 16,
+      "gold_label": "atlas",
+      "rationale": "Swift cannot carry 7 kg; Atlas and Cargo can, and Atlas costs 9 euros rather than 15.",
+      "label": "cargo",
+      "correct": false,
+      "probabilities": {
+        "swift": 0.3036150336265564,
+        "atlas": 0.3426159918308258,
+        "cargo": 0.3537690043449402
+      },
+      "logits": [
+        17.8245849609375,
+        17.946046829223633,
+        17.97824478149414
+      ],
+      "token_proof": {
+        "untruncated_tokens": 533,
+        "consumed_tokens": 533,
+        "input_shape": [
+          1,
+          533
+        ],
+        "attention_mask_sum": 533,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "58df7fc74f5ae408833fadf56b06ea31a86a90114665153c8c6d8744eaa93582",
+        "consumed_ids_sha256": "58df7fc74f5ae408833fadf56b06ea31a86a90114665153c8c6d8744eaa93582"
+      }
+    },
+    {
+      "id": "choice_invoice_duplicate",
+      "kind": "choice",
+      "filler_records": 0,
+      "gold_label": "hold_duplicate",
+      "rationale": "All duplicate identifiers and the amount match an already paid invoice; no amount discrepancy warrants correction.",
+      "label": "request_correction",
+      "correct": false,
+      "probabilities": {
+        "pay": 0.33544933795928955,
+        "hold_duplicate": 0.29317623376846313,
+        "request_correction": 0.3713744282722473
+      },
+      "logits": [
+        19.66170310974121,
+        19.526323318481445,
+        19.763957977294922
+      ],
+      "token_proof": {
+        "untruncated_tokens": 50,
+        "consumed_tokens": 50,
+        "input_shape": [
+          1,
+          50
+        ],
+        "attention_mask_sum": 50,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "d8acf746a111a1bc359b546fa7040352017a05440df0d2d411b01613c1a629ec",
+        "consumed_ids_sha256": "d8acf746a111a1bc359b546fa7040352017a05440df0d2d411b01613c1a629ec"
+      },
+      "original_decide_max_probability_error": 1.0728836059570312e-06
+    },
+    {
+      "id": "choice_invoice_duplicate",
+      "kind": "choice",
+      "filler_records": 1,
+      "gold_label": "hold_duplicate",
+      "rationale": "All duplicate identifiers and the amount match an already paid invoice; no amount discrepancy warrants correction.",
+      "label": "request_correction",
+      "correct": false,
+      "probabilities": {
+        "pay": 0.3538855314254761,
+        "hold_duplicate": 0.28017619252204895,
+        "request_correction": 0.365938276052475
+      },
+      "logits": [
+        19.558319091796875,
+        19.32358169555664,
+        19.59197998046875
+      ],
+      "token_proof": {
+        "untruncated_tokens": 79,
+        "consumed_tokens": 79,
+        "input_shape": [
+          1,
+          79
+        ],
+        "attention_mask_sum": 79,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "f528bdf273828efeabb172688c95b38c2cbb241bc0f9469e045236f85aca8f23",
+        "consumed_ids_sha256": "f528bdf273828efeabb172688c95b38c2cbb241bc0f9469e045236f85aca8f23"
+      }
+    },
+    {
+      "id": "choice_invoice_duplicate",
+      "kind": "choice",
+      "filler_records": 16,
+      "gold_label": "hold_duplicate",
+      "rationale": "All duplicate identifiers and the amount match an already paid invoice; no amount discrepancy warrants correction.",
+      "label": "request_correction",
+      "correct": false,
+      "probabilities": {
+        "pay": 0.34371253848075867,
+        "hold_duplicate": 0.2931736707687378,
+        "request_correction": 0.3631138205528259
+      },
+      "logits": [
+        19.51880645751953,
+        19.358959197998047,
+        19.573993682861328
+      ],
+      "token_proof": {
+        "untruncated_tokens": 513,
+        "consumed_tokens": 513,
+        "input_shape": [
+          1,
+          513
+        ],
+        "attention_mask_sum": 513,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "c645980b26e11b7421de1500a8dbaa2b45ef697ef6b1ec5379f3ff26099df68b",
+        "consumed_ids_sha256": "c645980b26e11b7421de1500a8dbaa2b45ef697ef6b1ec5379f3ff26099df68b"
+      }
+    },
+    {
+      "id": "choice_irrigation",
+      "kind": "choice",
+      "filler_records": 0,
+      "gold_label": "water",
+      "rationale": "18 percent is below 25 percent, and both water and an operational pump are available.",
+      "label": "refill",
+      "correct": false,
+      "probabilities": {
+        "wait": 0.3254863917827606,
+        "refill": 0.36938196420669556,
+        "water": 0.3051317036151886
+      },
+      "logits": [
+        20.419231414794922,
+        20.546384811401367,
+        20.354328155517578
+      ],
+      "token_proof": {
+        "untruncated_tokens": 47,
+        "consumed_tokens": 47,
+        "input_shape": [
+          1,
+          47
+        ],
+        "attention_mask_sum": 47,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "54a95fc86b1c71bf8ac5c6c4e4f01faf8fca7ebe5052fdb15fd11e749eaf3e6c",
+        "consumed_ids_sha256": "54a95fc86b1c71bf8ac5c6c4e4f01faf8fca7ebe5052fdb15fd11e749eaf3e6c"
+      },
+      "original_decide_max_probability_error": 3.8743019104003906e-07
+    },
+    {
+      "id": "choice_irrigation",
+      "kind": "choice",
+      "filler_records": 1,
+      "gold_label": "water",
+      "rationale": "18 percent is below 25 percent, and both water and an operational pump are available.",
+      "label": "refill",
+      "correct": false,
+      "probabilities": {
+        "wait": 0.3286205530166626,
+        "refill": 0.3709276616573334,
+        "water": 0.30045169591903687
+      },
+      "logits": [
+        20.263566970825195,
+        20.385284423828125,
+        20.17349624633789
+      ],
+      "token_proof": {
+        "untruncated_tokens": 76,
+        "consumed_tokens": 76,
+        "input_shape": [
+          1,
+          76
+        ],
+        "attention_mask_sum": 76,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "0d5937440cd5d305a9c3a9a4e3b224994b3b9759f1b7006decf7a42d75b76798",
+        "consumed_ids_sha256": "0d5937440cd5d305a9c3a9a4e3b224994b3b9759f1b7006decf7a42d75b76798"
+      }
+    },
+    {
+      "id": "choice_irrigation",
+      "kind": "choice",
+      "filler_records": 16,
+      "gold_label": "water",
+      "rationale": "18 percent is below 25 percent, and both water and an operational pump are available.",
+      "label": "refill",
+      "correct": false,
+      "probabilities": {
+        "wait": 0.29756107926368713,
+        "refill": 0.35488900542259216,
+        "water": 0.3475498855113983
+      },
+      "logits": [
+        18.58866310119629,
+        18.7657413482666,
+        18.744739532470703
+      ],
+      "token_proof": {
+        "untruncated_tokens": 510,
+        "consumed_tokens": 510,
+        "input_shape": [
+          1,
+          510
+        ],
+        "attention_mask_sum": 510,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "05e67d5c05d3323b368dd3c4487026671343a1a44ab65d97e550943a13b95059",
+        "consumed_ids_sha256": "05e67d5c05d3323b368dd3c4487026671343a1a44ab65d97e550943a13b95059"
+      }
+    },
+    {
+      "id": "choice_document_route",
+      "kind": "choice",
+      "filler_records": 0,
+      "gold_label": "human_resources",
+      "rationale": "The document is an employment agreement, not either of the two other document types.",
+      "label": "human_resources",
+      "correct": true,
+      "probabilities": {
+        "human_resources": 0.3503643870353699,
+        "sales": 0.299440860748291,
+        "accounts_payable": 0.35019469261169434
+      },
+      "logits": [
+        19.1532039642334,
+        18.995351791381836,
+        19.15271759033203
+      ],
+      "token_proof": {
+        "untruncated_tokens": 45,
+        "consumed_tokens": 45,
+        "input_shape": [
+          1,
+          45
+        ],
+        "attention_mask_sum": 45,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "ba14b23096a60e7e28029520019eff889ef49db00bcdb1080ed7dbec6c5b0d14",
+        "consumed_ids_sha256": "ba14b23096a60e7e28029520019eff889ef49db00bcdb1080ed7dbec6c5b0d14"
+      },
+      "original_decide_max_probability_error": 0.0
+    },
+    {
+      "id": "choice_document_route",
+      "kind": "choice",
+      "filler_records": 1,
+      "gold_label": "human_resources",
+      "rationale": "The document is an employment agreement, not either of the two other document types.",
+      "label": "human_resources",
+      "correct": true,
+      "probabilities": {
+        "human_resources": 0.3605903387069702,
+        "sales": 0.32043808698654175,
+        "accounts_payable": 0.31897154450416565
+      },
+      "logits": [
+        19.072162628173828,
+        18.953510284423828,
+        18.94890022277832
+      ],
+      "token_proof": {
+        "untruncated_tokens": 74,
+        "consumed_tokens": 74,
+        "input_shape": [
+          1,
+          74
+        ],
+        "attention_mask_sum": 74,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "4a902f9e51eef9323d21148233528aa0b16542681863e26a495489c489fe4b03",
+        "consumed_ids_sha256": "4a902f9e51eef9323d21148233528aa0b16542681863e26a495489c489fe4b03"
+      }
+    },
+    {
+      "id": "choice_document_route",
+      "kind": "choice",
+      "filler_records": 16,
+      "gold_label": "human_resources",
+      "rationale": "The document is an employment agreement, not either of the two other document types.",
+      "label": "human_resources",
+      "correct": true,
+      "probabilities": {
+        "human_resources": 0.35096657276153564,
+        "sales": 0.32738399505615234,
+        "accounts_payable": 0.321649432182312
+      },
+      "logits": [
+        19.35169792175293,
+        19.281787872314453,
+        19.264026641845703
+      ],
+      "token_proof": {
+        "untruncated_tokens": 508,
+        "consumed_tokens": 508,
+        "input_shape": [
+          1,
+          508
+        ],
+        "attention_mask_sum": 508,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "9234778de0051ddcad313808cb99f2d79746ff181ab2a2d11e3a5eb118e40577",
+        "consumed_ids_sha256": "9234778de0051ddcad313808cb99f2d79746ff181ab2a2d11e3a5eb118e40577"
+      }
+    },
+    {
+      "id": "score_service_outage",
+      "kind": "score",
+      "filler_records": 0,
+      "gold_label": "0",
+      "rationale": "Zero unavailable minutes meets level 0 exactly; success probes do not introduce an outage.",
+      "label": "0",
+      "correct": true,
+      "probabilities": {
+        "0": 0.39083269238471985,
+        "1": 0.2987567186355591,
+        "2": 0.17502638697624207,
+        "3": 0.13538412749767303
+      },
+      "logits": [
+        20.33444595336914,
+        20.02713394165039,
+        19.41549301147461,
+        19.12171173095703
+      ],
+      "token_proof": {
+        "untruncated_tokens": 37,
+        "consumed_tokens": 37,
+        "input_shape": [
+          1,
+          37
+        ],
+        "attention_mask_sum": 37,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "f883d1273869637dcadb6850827c177de3da46058552dbcedb7e7655f0551e16",
+        "consumed_ids_sha256": "f883d1273869637dcadb6850827c177de3da46058552dbcedb7e7655f0551e16"
+      },
+      "original_decide_max_probability_error": 2.682209014892578e-07
+    },
+    {
+      "id": "score_service_outage",
+      "kind": "score",
+      "filler_records": 1,
+      "gold_label": "0",
+      "rationale": "Zero unavailable minutes meets level 0 exactly; success probes do not introduce an outage.",
+      "label": "0",
+      "correct": true,
+      "probabilities": {
+        "0": 0.39348867535591125,
+        "1": 0.3005472421646118,
+        "2": 0.17546120285987854,
+        "3": 0.13050290942192078
+      },
+      "logits": [
+        20.16533088684082,
+        19.857107162475586,
+        19.24146842956543,
+        18.90284538269043
+      ],
+      "token_proof": {
+        "untruncated_tokens": 66,
+        "consumed_tokens": 66,
+        "input_shape": [
+          1,
+          66
+        ],
+        "attention_mask_sum": 66,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "80740156e9b36478063abf424f3416f83febeb948a7fd7da02387d4539a6440c",
+        "consumed_ids_sha256": "80740156e9b36478063abf424f3416f83febeb948a7fd7da02387d4539a6440c"
+      }
+    },
+    {
+      "id": "score_service_outage",
+      "kind": "score",
+      "filler_records": 16,
+      "gold_label": "0",
+      "rationale": "Zero unavailable minutes meets level 0 exactly; success probes do not introduce an outage.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.13286742568016052,
+        "1": 0.25603124499320984,
+        "2": 0.3550061583518982,
+        "3": 0.2560952305793762
+      },
+      "logits": [
+        17.986825942993164,
+        18.737173080444336,
+        19.11104393005371,
+        18.737457275390625
+      ],
+      "token_proof": {
+        "untruncated_tokens": 500,
+        "consumed_tokens": 500,
+        "input_shape": [
+          1,
+          500
+        ],
+        "attention_mask_sum": 500,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "f6637ebcdd3aabdff9e244d0692fb3ac335790e79db2837c6ec2641350fe2867",
+        "consumed_ids_sha256": "f6637ebcdd3aabdff9e244d0692fb3ac335790e79db2837c6ec2641350fe2867"
+      }
+    },
+    {
+      "id": "score_delivery_delay",
+      "kind": "score",
+      "filler_records": 0,
+      "gold_label": "1",
+      "rationale": "The explicitly stated two-day delay lies in the inclusive 1-to-2-day band.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.13049790263175964,
+        "1": 0.2469377964735031,
+        "2": 0.34379127621650696,
+        "3": 0.27877306938171387
+      },
+      "logits": [
+        18.979352951049805,
+        19.70891571044922,
+        20.087434768676758,
+        19.847627639770508
+      ],
+      "token_proof": {
+        "untruncated_tokens": 45,
+        "consumed_tokens": 45,
+        "input_shape": [
+          1,
+          45
+        ],
+        "attention_mask_sum": 45,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "c21102fdcd7f7b82ffd851ba6269e43434931c55fb9f44ea81e5a80970a453cd",
+        "consumed_ids_sha256": "c21102fdcd7f7b82ffd851ba6269e43434931c55fb9f44ea81e5a80970a453cd"
+      },
+      "original_decide_max_probability_error": 5.662441253662109e-07
+    },
+    {
+      "id": "score_delivery_delay",
+      "kind": "score",
+      "filler_records": 1,
+      "gold_label": "1",
+      "rationale": "The explicitly stated two-day delay lies in the inclusive 1-to-2-day band.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.1638822704553604,
+        "1": 0.2735762596130371,
+        "2": 0.30730095505714417,
+        "3": 0.2552405297756195
+      },
+      "logits": [
+        18.827869415283203,
+        19.414045333862305,
+        19.547021865844727,
+        19.334688186645508
+      ],
+      "token_proof": {
+        "untruncated_tokens": 74,
+        "consumed_tokens": 74,
+        "input_shape": [
+          1,
+          74
+        ],
+        "attention_mask_sum": 74,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "ac7ccea27223411554c0cf65851666a9a882de028c9030703f84c152053397fa",
+        "consumed_ids_sha256": "ac7ccea27223411554c0cf65851666a9a882de028c9030703f84c152053397fa"
+      }
+    },
+    {
+      "id": "score_delivery_delay",
+      "kind": "score",
+      "filler_records": 16,
+      "gold_label": "1",
+      "rationale": "The explicitly stated two-day delay lies in the inclusive 1-to-2-day band.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.11066470295190811,
+        "1": 0.2811122536659241,
+        "2": 0.3297938406467438,
+        "3": 0.27842921018600464
+      },
+      "logits": [
+        18.35118293762207,
+        19.41759490966797,
+        19.600292205810547,
+        19.40662384033203
+      ],
+      "token_proof": {
+        "untruncated_tokens": 508,
+        "consumed_tokens": 508,
+        "input_shape": [
+          1,
+          508
+        ],
+        "attention_mask_sum": 508,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "449734192e7670e3f48ef0f5c7c773f4eb37677119857e0f86cc8acde3162e33",
+        "consumed_ids_sha256": "449734192e7670e3f48ef0f5c7c773f4eb37677119857e0f86cc8acde3162e33"
+      }
+    },
+    {
+      "id": "score_stock_shortfall",
+      "kind": "score",
+      "filler_records": 0,
+      "gold_label": "2",
+      "rationale": "100 minus 72 leaves 28 missing valves, or 28 percent of the order, in the greater-than-10 through 30 percent band.",
+      "label": "0",
+      "correct": false,
+      "probabilities": {
+        "0": 0.3626267910003662,
+        "1": 0.2866491973400116,
+        "2": 0.20418329536914825,
+        "3": 0.14654074609279633
+      },
+      "logits": [
+        19.947891235351562,
+        19.67894172668457,
+        19.29088020324707,
+        18.911426544189453
+      ],
+      "token_proof": {
+        "untruncated_tokens": 48,
+        "consumed_tokens": 48,
+        "input_shape": [
+          1,
+          48
+        ],
+        "attention_mask_sum": 48,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "842040b44f5f0729ca790fd837129660bcde491a8b004b83806f44264ec40a34",
+        "consumed_ids_sha256": "842040b44f5f0729ca790fd837129660bcde491a8b004b83806f44264ec40a34"
+      },
+      "original_decide_max_probability_error": 4.172325134277344e-07
+    },
+    {
+      "id": "score_stock_shortfall",
+      "kind": "score",
+      "filler_records": 1,
+      "gold_label": "2",
+      "rationale": "100 minus 72 leaves 28 missing valves, or 28 percent of the order, in the greater-than-10 through 30 percent band.",
+      "label": "0",
+      "correct": false,
+      "probabilities": {
+        "0": 0.3719201385974884,
+        "1": 0.29113444685935974,
+        "2": 0.19828778505325317,
+        "3": 0.1386576145887375
+      },
+      "logits": [
+        19.938413619995117,
+        19.65827751159668,
+        19.21894073486328,
+        18.809749603271484
+      ],
+      "token_proof": {
+        "untruncated_tokens": 77,
+        "consumed_tokens": 77,
+        "input_shape": [
+          1,
+          77
+        ],
+        "attention_mask_sum": 77,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "5812e14ee3f67275c78ff294a202c0dce93aec68e8bd39222e6bce254b243f1b",
+        "consumed_ids_sha256": "5812e14ee3f67275c78ff294a202c0dce93aec68e8bd39222e6bce254b243f1b"
+      }
+    },
+    {
+      "id": "score_stock_shortfall",
+      "kind": "score",
+      "filler_records": 16,
+      "gold_label": "2",
+      "rationale": "100 minus 72 leaves 28 missing valves, or 28 percent of the order, in the greater-than-10 through 30 percent band.",
+      "label": "2",
+      "correct": true,
+      "probabilities": {
+        "0": 0.12299090623855591,
+        "1": 0.24688862264156342,
+        "2": 0.3666931092739105,
+        "3": 0.26342737674713135
+      },
+      "logits": [
+        17.816959381103516,
+        18.61406898498535,
+        19.066585540771484,
+        18.68824005126953
+      ],
+      "token_proof": {
+        "untruncated_tokens": 511,
+        "consumed_tokens": 511,
+        "input_shape": [
+          1,
+          511
+        ],
+        "attention_mask_sum": 511,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "cc981d298b2b1126da687f7835688950b4893be213c8221b80052767f6f60cd5",
+        "consumed_ids_sha256": "cc981d298b2b1126da687f7835688950b4893be213c8221b80052767f6f60cd5"
+      }
+    },
+    {
+      "id": "score_defect_rate",
+      "kind": "score",
+      "filler_records": 0,
+      "gold_label": "3",
+      "rationale": "14 out of 100 lamps is 14 percent defective, exceeding the level-3 threshold of 10 percent.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.09129168838262558,
+        "1": 0.24775783717632294,
+        "2": 0.38190433382987976,
+        "3": 0.27904608845710754
+      },
+      "logits": [
+        18.64658546447754,
+        19.78865623474121,
+        20.283649444580078,
+        19.92469596862793
+      ],
+      "token_proof": {
+        "untruncated_tokens": 43,
+        "consumed_tokens": 43,
+        "input_shape": [
+          1,
+          43
+        ],
+        "attention_mask_sum": 43,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "3fcc0b10a48f8105c8a17bdfdf5abb6d10bad1a515a2e20998b842695a716368",
+        "consumed_ids_sha256": "3fcc0b10a48f8105c8a17bdfdf5abb6d10bad1a515a2e20998b842695a716368"
+      },
+      "original_decide_max_probability_error": 3.8743019104003906e-07
+    },
+    {
+      "id": "score_defect_rate",
+      "kind": "score",
+      "filler_records": 1,
+      "gold_label": "3",
+      "rationale": "14 out of 100 lamps is 14 percent defective, exceeding the level-3 threshold of 10 percent.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.16703413426876068,
+        "1": 0.2937943935394287,
+        "2": 0.3262239396572113,
+        "3": 0.21294748783111572
+      },
+      "logits": [
+        19.024349212646484,
+        19.67029571533203,
+        19.790069580078125,
+        19.302146911621094
+      ],
+      "token_proof": {
+        "untruncated_tokens": 72,
+        "consumed_tokens": 72,
+        "input_shape": [
+          1,
+          72
+        ],
+        "attention_mask_sum": 72,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "6dcc10c04dbee89d757a76bbfb54c807f9e3c3476730f0e2ac734e2ffd0a0054",
+        "consumed_ids_sha256": "6dcc10c04dbee89d757a76bbfb54c807f9e3c3476730f0e2ac734e2ffd0a0054"
+      }
+    },
+    {
+      "id": "score_defect_rate",
+      "kind": "score",
+      "filler_records": 16,
+      "gold_label": "3",
+      "rationale": "14 out of 100 lamps is 14 percent defective, exceeding the level-3 threshold of 10 percent.",
+      "label": "2",
+      "correct": false,
+      "probabilities": {
+        "0": 0.09292235225439072,
+        "1": 0.24294133484363556,
+        "2": 0.37901055812835693,
+        "3": 0.2851257920265198
+      },
+      "logits": [
+        18.321514129638672,
+        19.42087745666504,
+        19.92962646484375,
+        19.60403060913086
+      ],
+      "token_proof": {
+        "untruncated_tokens": 506,
+        "consumed_tokens": 506,
+        "input_shape": [
+          1,
+          506
+        ],
+        "attention_mask_sum": 506,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "9e263580c179554f5ebbd3fac4fd34f78516bbd02e7628c5d68170510acf9a02",
+        "consumed_ids_sha256": "9e263580c179554f5ebbd3fac4fd34f78516bbd02e7628c5d68170510acf9a02"
+      }
+    },
+    {
+      "id": "noul_expense_approval",
+      "kind": "noul",
+      "filler_records": 0,
+      "gold_label": "true",
+      "rationale": "620 exceeds 500 euros and the required approval has not been recorded; a receipt is not manager approval.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.5745700597763062,
+        "true": 0.42542991042137146
+      },
+      "logits": [
+        19.90047836303711,
+        19.583162307739258
+      ],
+      "token_proof": {
+        "untruncated_tokens": 41,
+        "consumed_tokens": 41,
+        "input_shape": [
+          1,
+          41
+        ],
+        "attention_mask_sum": 41,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "8fdb98d48c8fee3a4f4ad05ad2ea8b96e81776b701e04adacd89739e8281d96a",
+        "consumed_ids_sha256": "8fdb98d48c8fee3a4f4ad05ad2ea8b96e81776b701e04adacd89739e8281d96a"
+      },
+      "original_decide_max_probability_error": 0.0
+    },
+    {
+      "id": "noul_expense_approval",
+      "kind": "noul",
+      "filler_records": 1,
+      "gold_label": "true",
+      "rationale": "620 exceeds 500 euros and the required approval has not been recorded; a receipt is not manager approval.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.6249491572380066,
+        "true": 0.3750508725643158
+      },
+      "logits": [
+        19.847883224487305,
+        19.308740615844727
+      ],
+      "token_proof": {
+        "untruncated_tokens": 70,
+        "consumed_tokens": 70,
+        "input_shape": [
+          1,
+          70
+        ],
+        "attention_mask_sum": 70,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "65c3e7c1991a6317ef63c934bf1067f7d04a18f8e3fb765213811b0262a23c21",
+        "consumed_ids_sha256": "65c3e7c1991a6317ef63c934bf1067f7d04a18f8e3fb765213811b0262a23c21"
+      }
+    },
+    {
+      "id": "noul_expense_approval",
+      "kind": "noul",
+      "filler_records": 16,
+      "gold_label": "true",
+      "rationale": "620 exceeds 500 euros and the required approval has not been recorded; a receipt is not manager approval.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.5587987303733826,
+        "true": 0.4412012994289398
+      },
+      "logits": [
+        19.36411476135254,
+        19.114622116088867
+      ],
+      "token_proof": {
+        "untruncated_tokens": 504,
+        "consumed_tokens": 504,
+        "input_shape": [
+          1,
+          504
+        ],
+        "attention_mask_sum": 504,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "6ea23f40b7b28f7e35a324617c7fbb81b868c78808fd054a88d577965be7d412",
+        "consumed_ids_sha256": "6ea23f40b7b28f7e35a324617c7fbb81b868c78808fd054a88d577965be7d412"
+      }
+    },
+    {
+      "id": "noul_cold_storage",
+      "kind": "noul",
+      "filler_records": 0,
+      "gold_label": "false",
+      "rationale": "5 degrees lies within the stated inclusive 2-to-8-degree permitted range.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.8036748170852661,
+        "true": 0.19632525742053986
+      },
+      "logits": [
+        19.515993118286133,
+        18.027807235717773
+      ],
+      "token_proof": {
+        "untruncated_tokens": 48,
+        "consumed_tokens": 48,
+        "input_shape": [
+          1,
+          48
+        ],
+        "attention_mask_sum": 48,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "2f4fc2c8e945cd2046de64df1ee9d24a55d51fc83366f9f7e1339feeacbaf631",
+        "consumed_ids_sha256": "2f4fc2c8e945cd2046de64df1ee9d24a55d51fc83366f9f7e1339feeacbaf631"
+      },
+      "original_decide_max_probability_error": 3.5762786865234375e-07
+    },
+    {
+      "id": "noul_cold_storage",
+      "kind": "noul",
+      "filler_records": 1,
+      "gold_label": "false",
+      "rationale": "5 degrees lies within the stated inclusive 2-to-8-degree permitted range.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.8130282759666443,
+        "true": 0.18697170913219452
+      },
+      "logits": [
+        19.425365447998047,
+        17.873416900634766
+      ],
+      "token_proof": {
+        "untruncated_tokens": 77,
+        "consumed_tokens": 77,
+        "input_shape": [
+          1,
+          77
+        ],
+        "attention_mask_sum": 77,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "1d79cd054e0f19ddbb5d6ae7822fe6212bf666a93c3f4b231297e030e5946509",
+        "consumed_ids_sha256": "1d79cd054e0f19ddbb5d6ae7822fe6212bf666a93c3f4b231297e030e5946509"
+      }
+    },
+    {
+      "id": "noul_cold_storage",
+      "kind": "noul",
+      "filler_records": 16,
+      "gold_label": "false",
+      "rationale": "5 degrees lies within the stated inclusive 2-to-8-degree permitted range.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.6495998501777649,
+        "true": 0.35040006041526794
+      },
+      "logits": [
+        19.17633819580078,
+        18.524560928344727
+      ],
+      "token_proof": {
+        "untruncated_tokens": 511,
+        "consumed_tokens": 511,
+        "input_shape": [
+          1,
+          511
+        ],
+        "attention_mask_sum": 511,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "1b34b69a1ae86ac913c0291c407617e07874667fc23b7c47eb0980b90c0ff847",
+        "consumed_ids_sha256": "1b34b69a1ae86ac913c0291c407617e07874667fc23b7c47eb0980b90c0ff847"
+      }
+    },
+    {
+      "id": "noul_training_access",
+      "kind": "noul",
+      "filler_records": 0,
+      "gold_label": "true",
+      "rationale": "All three required credentials are present and the disqualifying suspension is absent.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.6613182425498962,
+        "true": 0.33868178725242615
+      },
+      "logits": [
+        20.359891891479492,
+        19.6533203125
+      ],
+      "token_proof": {
+        "untruncated_tokens": 42,
+        "consumed_tokens": 42,
+        "input_shape": [
+          1,
+          42
+        ],
+        "attention_mask_sum": 42,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "4757e8cf59bb8333a068fb49c97d4a9a24c362bb90bc3031d416448f48b887b3",
+        "consumed_ids_sha256": "4757e8cf59bb8333a068fb49c97d4a9a24c362bb90bc3031d416448f48b887b3"
+      },
+      "original_decide_max_probability_error": 0.0
+    },
+    {
+      "id": "noul_training_access",
+      "kind": "noul",
+      "filler_records": 1,
+      "gold_label": "true",
+      "rationale": "All three required credentials are present and the disqualifying suspension is absent.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.6613827347755432,
+        "true": 0.3386172950267792
+      },
+      "logits": [
+        20.198335647583008,
+        19.4914608001709
+      ],
+      "token_proof": {
+        "untruncated_tokens": 71,
+        "consumed_tokens": 71,
+        "input_shape": [
+          1,
+          71
+        ],
+        "attention_mask_sum": 71,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "3d55d82ac4640cf8ac869ead6b1cac3dfaac24a6345716ac222fcc4f3deb7a94",
+        "consumed_ids_sha256": "3d55d82ac4640cf8ac869ead6b1cac3dfaac24a6345716ac222fcc4f3deb7a94"
+      }
+    },
+    {
+      "id": "noul_training_access",
+      "kind": "noul",
+      "filler_records": 16,
+      "gold_label": "true",
+      "rationale": "All three required credentials are present and the disqualifying suspension is absent.",
+      "label": "false",
+      "correct": false,
+      "probabilities": {
+        "false": 0.6103581786155701,
+        "true": 0.38964176177978516
+      },
+      "logits": [
+        19.75297737121582,
+        19.279077529907227
+      ],
+      "token_proof": {
+        "untruncated_tokens": 505,
+        "consumed_tokens": 505,
+        "input_shape": [
+          1,
+          505
+        ],
+        "attention_mask_sum": 505,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "10ae071fe8ec193f5932e6e92ec2f6544eaacd9891f7738ded2866d7549e34a1",
+        "consumed_ids_sha256": "10ae071fe8ec193f5932e6e92ec2f6544eaacd9891f7738ded2866d7549e34a1"
+      }
+    },
+    {
+      "id": "noul_refund_window",
+      "kind": "noul",
+      "filler_records": 0,
+      "gold_label": "false",
+      "rationale": "The 45-day request misses the mandatory 30-day limit despite satisfying the packaging and receipt conditions.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.5572877526283264,
+        "true": 0.44271227717399597
+      },
+      "logits": [
+        21.201223373413086,
+        20.958200454711914
+      ],
+      "token_proof": {
+        "untruncated_tokens": 64,
+        "consumed_tokens": 64,
+        "input_shape": [
+          1,
+          64
+        ],
+        "attention_mask_sum": 64,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "1516a6200f9c8a6179f47fac3a7508b9eb9fd9f00552a199bc85de3b5f6fbc02",
+        "consumed_ids_sha256": "1516a6200f9c8a6179f47fac3a7508b9eb9fd9f00552a199bc85de3b5f6fbc02"
+      },
+      "original_decide_max_probability_error": 0.0
+    },
+    {
+      "id": "noul_refund_window",
+      "kind": "noul",
+      "filler_records": 1,
+      "gold_label": "false",
+      "rationale": "The 45-day request misses the mandatory 30-day limit despite satisfying the packaging and receipt conditions.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.5625084042549133,
+        "true": 0.43749162554740906
+      },
+      "logits": [
+        21.057523727416992,
+        20.79212760925293
+      ],
+      "token_proof": {
+        "untruncated_tokens": 93,
+        "consumed_tokens": 93,
+        "input_shape": [
+          1,
+          93
+        ],
+        "attention_mask_sum": 93,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "902f6e6f16e0bc30549bf51e1554b74bdc75fdaccb2644ec08f61c63384b9ae2",
+        "consumed_ids_sha256": "902f6e6f16e0bc30549bf51e1554b74bdc75fdaccb2644ec08f61c63384b9ae2"
+      }
+    },
+    {
+      "id": "noul_refund_window",
+      "kind": "noul",
+      "filler_records": 16,
+      "gold_label": "false",
+      "rationale": "The 45-day request misses the mandatory 30-day limit despite satisfying the packaging and receipt conditions.",
+      "label": "false",
+      "correct": true,
+      "probabilities": {
+        "false": 0.5356602072715759,
+        "true": 0.46433985233306885
+      },
+      "logits": [
+        20.658676147460938,
+        20.507808685302734
+      ],
+      "token_proof": {
+        "untruncated_tokens": 527,
+        "consumed_tokens": 527,
+        "input_shape": [
+          1,
+          527
+        ],
+        "attention_mask_sum": 527,
+        "mask_binary": true,
+        "full_ids_equal": true,
+        "untruncated_ids_sha256": "105821d11dd696de694e63f8b61ce8479dffaf023a674be607ea8642b3f00294",
+        "consumed_ids_sha256": "105821d11dd696de694e63f8b61ce8479dffaf023a674be607ea8642b3f00294"
+      }
+    }
+  ],
+  "accuracy_by_filler": {
+    "0": 0.3333333333333333,
+    "1": 0.4166666666666667,
+    "16": 0.3333333333333333
+  },
+  "configuration_unchanged": true,
+  "status": "complete"
+}
