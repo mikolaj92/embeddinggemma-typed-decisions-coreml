@@ -1,0 +1,25 @@
+{
+  "experimental_only": true,
+  "quality_approved": false,
+  "production_changed": false,
+  "compute_units": "CPU_AND_NE",
+  "package": "/private/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage",
+  "input_shape": [
+    1,
+    16384,
+    512
+  ],
+  "consumed_tokens": 16384,
+  "passed": true,
+  "load_seconds": 5690.349151875009,
+  "cosine": 0.9999956488609314,
+  "max_abs_error": 0.0013282299041748047,
+  "embedding_norm": 0.9999999403953552,
+  "warm_seconds": [
+    37.62720958306454,
+    37.44361195806414,
+    37.46584337495733
+  ],
+  "warm_median_seconds": 37.46584337495733,
+  "process_peak_rss_bytes": 6969786368
+}
