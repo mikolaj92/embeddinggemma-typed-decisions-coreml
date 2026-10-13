@@ -1,0 +1,13 @@
+{
+  "tokens": 512,
+  "query_tile": 256,
+  "CoreML": "CPU_AND_NE",
+  "finite": true,
+  "cosine": 0.9999856352806091,
+  "max_abs_error": 0.0007179230451583862,
+  "load_seconds": 36.90735829202458,
+  "warm_median_seconds": 0.034664083970710635,
+  "process_peak_rss_bytes": 796508160,
+  "passed": true,
+  "production_changed": false
+}
