@@ -11,7 +11,7 @@ from integrity import package_sha256
 
 LABEL="pl.mikomac.typed-decisions"
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument("artifacts",type=Path); ap.add_argument("--port",type=int,default=8005); ap.add_argument("--startup-timeout",type=int,default=600); args=ap.parse_args()
+    ap=argparse.ArgumentParser(); ap.add_argument("artifacts",type=Path); ap.add_argument("--port",type=int,default=8005); ap.add_argument("--startup-timeout",type=int,default=1800); args=ap.parse_args()
     root=args.artifacts.resolve(); digest=package_sha256(root)
     manifest=json.loads((root/"manifest.json").read_text())
     config=json.loads((root/"upstream/config.json").read_text())
