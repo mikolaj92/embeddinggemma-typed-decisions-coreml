@@ -46,6 +46,12 @@ Short control with unchanged original dictionary renderer/head and same evidence
 
 Fixed original structured facts/counts0/266/538, unscaled absolute positions, original config8192 unchanged, original frozen head/question/options: all6 synthetic decisions correct. Native8k same-ID/mask reference parity maxabs1.062e-7. Long consumed16345safe/16337unsafe tokens,21.58/21.29s tiled state CPU2threads, cumulative process peak6.21GiB (includes8k reference). Unsafe review margin shrinks from+0.206345 at8k to+0.030178 at16k: very near boundary, not robust quality approval. Raw/unseen failures still apply. Source was copied, so report repository_revision null; actual source hashes bind code. See diagnostic_tiled_structured.py and reports/mini-m4-tiled-structured16k-quality.json. No32k progression or production approval based on this pair.
 
+## Large-graph compiler feasibility and reuse pilot
+
+16kQ512 trace contains362735 nodes; native load still incomplete after more than60minutes. A privileged stack sample shows active mutable-weight-offset analysis, dominated by producer-of-blob map construction. This is evidence of graph bookkeeping overhead, not deadlock or confirmed ANE execution. Production health remains unchanged. No inference/time or runtime parity claim can be made before load finishes.
+
+experiment_attention_reuse.py exports two small weight-free native512/Q256 attention kernels and compares FP32 with independent whole512 dense oracle. Export passed allvalid/paddingholes/sparse/allmasked; hardware validation pending. Same compiled tile must be reused twice with fixed full K/V, then outputs concatenated before later layers/pooling. This pilot is NOT full encoder or original-head quality, does not verify RoPE/normalization or the local512 boundary. Future per-layer reusable host graph would preserve immutable full-layer snapshots and exact global softmax; no independently encoded chunk averaging.
+
 ## Transport and calibration caveats
 
 Current API body cap262144 bytes and aggregate rendered text cap524288 bytes are independent of token limits. Instructions/criterion strings have8192-character caps. Many64k/128k text requests will exceed the body limit even if the encoder can represent them. Do not weaken these guards automatically; a later explicitly budgeted API transport design must preserve denial-of-service bounds.
