@@ -1,0 +1,250 @@
+[
+  {
+    "id": "choice_parcel_carrier",
+    "workflow": "parcel_dispatch",
+    "state": "Parcel P-41 weighs 7 kg. Available carriers: Swift accepts at most 5 kg; Atlas accepts at most 10 kg; Cargo accepts at most 30 kg. Their fees are 6, 9 and 15 euros respectively.",
+    "questions": {
+      "carrier": {
+        "type": "choice",
+        "instructions": "Select the cheapest carrier whose weight limit accommodates the parcel.",
+        "criteria": {
+          "swift": "Swift: limit 5 kg, fee 6 euros",
+          "atlas": "Atlas: limit 10 kg, fee 9 euros",
+          "cargo": "Cargo: limit 30 kg, fee 15 euros"
+        }
+      }
+    },
+    "expected": {
+      "carrier": {
+        "label": "atlas"
+      }
+    },
+    "rationale": "Swift cannot carry 7 kg; Atlas and Cargo can, and Atlas costs 9 euros rather than 15."
+  },
+  {
+    "id": "choice_invoice_duplicate",
+    "workflow": "invoice_processing",
+    "state": "Invoice INV-73 for 240 euros has the same supplier, invoice number and amount as an invoice already paid. There is no credit note or correction.",
+    "questions": {
+      "disposition": {
+        "type": "choice",
+        "instructions": "Choose the disposition: pay a new valid invoice, hold an exact duplicate of an already paid invoice, or request correction when the amount differs.",
+        "criteria": {
+          "pay": "Pay a new valid invoice",
+          "hold_duplicate": "Hold an exact duplicate of an already paid invoice",
+          "request_correction": "Request correction for a differing amount"
+        }
+      }
+    },
+    "expected": {
+      "disposition": {
+        "label": "hold_duplicate"
+      }
+    },
+    "rationale": "All duplicate identifiers and the amount match an already paid invoice; no amount discrepancy warrants correction."
+  },
+  {
+    "id": "choice_irrigation",
+    "workflow": "greenhouse_irrigation",
+    "state": "The greenhouse soil moisture is 18 percent. No rain is forecast. The irrigation reservoir contains 400 liters and the pump is operational.",
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": "Water when soil moisture is below 25 percent and the pump and water supply are available. Refill if water is unavailable. Otherwise wait.",
+        "criteria": {
+          "wait": "Wait without watering",
+          "refill": "Refill the empty water supply",
+          "water": "Start watering the dry soil"
+        }
+      }
+    },
+    "expected": {
+      "action": {
+        "label": "water"
+      }
+    },
+    "rationale": "18 percent is below 25 percent, and both water and an operational pump are available."
+  },
+  {
+    "id": "choice_document_route",
+    "workflow": "document_routing",
+    "state": "Document D-18 is a signed employment agreement between the company and a new employee. It contains no customer purchase order and no supplier bill.",
+    "questions": {
+      "department": {
+        "type": "choice",
+        "instructions": "Route employment agreements to Human Resources, customer purchase orders to Sales, and supplier bills to Accounts Payable.",
+        "criteria": {
+          "human_resources": "Human Resources: employment agreements",
+          "sales": "Sales: customer purchase orders",
+          "accounts_payable": "Accounts Payable: supplier bills"
+        }
+      }
+    },
+    "expected": {
+      "department": {
+        "label": "human_resources"
+      }
+    },
+    "rationale": "The document is an employment agreement, not either of the two other document types."
+  },
+  {
+    "id": "score_service_outage",
+    "workflow": "service_availability",
+    "state": "The status log for service Cedar records zero minutes of unavailability during the observation period. All health probes succeeded.",
+    "questions": {
+      "outage_level": {
+        "type": "score",
+        "instructions": "Assign the outage level using total minutes of unavailability during this observation period.",
+        "criteria": {
+          "0": "0 minutes unavailable",
+          "1": "More than 0 and at most 10 minutes unavailable",
+          "2": "More than 10 and at most 60 minutes unavailable",
+          "3": "More than 60 minutes unavailable"
+        }
+      }
+    },
+    "expected": {
+      "outage_level": {
+        "label": "0"
+      }
+    },
+    "rationale": "Zero unavailable minutes meets level 0 exactly; success probes do not introduce an outage."
+  },
+  {
+    "id": "score_delivery_delay",
+    "workflow": "delivery_performance",
+    "state": "The agreed delivery date was May 4. Delivery was completed on May 6 of the same year, two calendar days after the agreed date.",
+    "questions": {
+      "delay_level": {
+        "type": "score",
+        "instructions": "Assign the delivery-delay level from the number of calendar days late.",
+        "criteria": {
+          "0": "Delivered on or before the agreed date: 0 days late",
+          "1": "1 to 2 calendar days late",
+          "2": "3 to 7 calendar days late",
+          "3": "8 or more calendar days late"
+        }
+      }
+    },
+    "expected": {
+      "delay_level": {
+        "label": "1"
+      }
+    },
+    "rationale": "The explicitly stated two-day delay lies in the inclusive 1-to-2-day band."
+  },
+  {
+    "id": "score_stock_shortfall",
+    "workflow": "inventory_coverage",
+    "state": "A customer order requires 100 valves. The warehouse has 72 usable valves reserved for that order; no other stock or incoming shipment is available.",
+    "questions": {
+      "shortfall_level": {
+        "type": "score",
+        "instructions": "Assign a level using the missing quantity as a percentage of the ordered quantity.",
+        "criteria": {
+          "0": "0 percent of ordered quantity missing",
+          "1": "More than 0 and at most 10 percent missing",
+          "2": "More than 10 and at most 30 percent missing",
+          "3": "More than 30 percent missing"
+        }
+      }
+    },
+    "expected": {
+      "shortfall_level": {
+        "label": "2"
+      }
+    },
+    "rationale": "100 minus 72 leaves 28 missing valves, or 28 percent of the order, in the greater-than-10 through 30 percent band."
+  },
+  {
+    "id": "score_defect_rate",
+    "workflow": "manufacturing_inspection",
+    "state": "Inspectors checked a batch of 100 lamps and found 14 defective lamps. The remaining 86 lamps passed inspection.",
+    "questions": {
+      "defect_level": {
+        "type": "score",
+        "instructions": "Assign the defect-rate level using defective lamps divided by inspected lamps, expressed as a percentage.",
+        "criteria": {
+          "0": "0 percent defective",
+          "1": "More than 0 and at most 2 percent defective",
+          "2": "More than 2 and at most 10 percent defective",
+          "3": "More than 10 percent defective"
+        }
+      }
+    },
+    "expected": {
+      "defect_level": {
+        "label": "3"
+      }
+    },
+    "rationale": "14 out of 100 lamps is 14 percent defective, exceeding the level-3 threshold of 10 percent."
+  },
+  {
+    "id": "noul_expense_approval",
+    "workflow": "expense_authorization",
+    "state": "A staff member submitted a 620-euro travel expense. The receipt is present. No manager approval is recorded.",
+    "questions": {
+      "needs_approval": {
+        "type": "noul",
+        "instructions": "Does this expense still need manager approval? Approval is required for expenses above 500 euros and is still needed when not already recorded."
+      }
+    },
+    "expected": {
+      "needs_approval": {
+        "label": "true"
+      }
+    },
+    "rationale": "620 exceeds 500 euros and the required approval has not been recorded; a receipt is not manager approval."
+  },
+  {
+    "id": "noul_cold_storage",
+    "workflow": "cold_chain_monitoring",
+    "state": "The medicine refrigerator is at 5 degrees Celsius. Its permitted operating range is 2 through 8 degrees Celsius inclusive. The temperature sensor is working.",
+    "questions": {
+      "outside_range": {
+        "type": "noul",
+        "instructions": "Is the current refrigerator temperature outside the permitted inclusive range?"
+      }
+    },
+    "expected": {
+      "outside_range": {
+        "label": "false"
+      }
+    },
+    "rationale": "5 degrees lies within the stated inclusive 2-to-8-degree permitted range."
+  },
+  {
+    "id": "noul_training_access",
+    "workflow": "equipment_access",
+    "state": "Operator Lina has a valid forklift license, completed the required site training, and has an active access badge. No suspension is recorded.",
+    "questions": {
+      "eligible": {
+        "type": "noul",
+        "instructions": "May the operator use the forklift? Eligibility requires a valid forklift license, completed site training, an active badge, and no suspension."
+      }
+    },
+    "expected": {
+      "eligible": {
+        "label": "true"
+      }
+    },
+    "rationale": "All three required credentials are present and the disqualifying suspension is absent."
+  },
+  {
+    "id": "noul_refund_window",
+    "workflow": "returns_eligibility",
+    "state": "The customer requests a return 45 calendar days after purchase. The item is unopened and the receipt is available. The store accepts returns only within 30 calendar days of purchase, including day 30, with no exceptions.",
+    "questions": {
+      "eligible": {
+        "type": "noul",
+        "instructions": "Is this return eligible under the stated policy? Eligibility requires an unopened item, a receipt, and a request no later than day 30 after purchase."
+      }
+    },
+    "expected": {
+      "eligible": {
+        "label": "false"
+      }
+    },
+    "rationale": "The 45-day request misses the mandatory 30-day limit despite satisfying the packaging and receipt conditions."
+  }
+]
