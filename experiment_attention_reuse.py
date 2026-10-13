@@ -1,4 +1,4 @@
-"""Native512/Q256 weight-free attention graph-reuse pilot; NOT an encoder.
+"""Native512 or native1024/Q256 weight-free attention graph-reuse pilot; NOT an encoder.
 
 Run in the repository's pinned Python environment, in TWO processes:
   python experiment_attention_reuse.py --output /tmp/attention-reuse-new
@@ -11,7 +11,8 @@ Q/K/V are assumed already normalized and Q/K absolute-RoPE transformed.
 This does NOT verify normalization, RoPE, full-encoder parity, ANE placement,
 context extension, quality, production inference, or a decision head.
 At native512, abs(query-key)<=512 permits every key: local/global geometry
-cannot demonstrate the sliding-window boundary. Native1024 is a later test.
+cannot demonstrate the sliding-window boundary. Use --size 1024 in BOTH
+processes to exercise distance512 inclusion and distance513 exclusion.
 """
 from __future__ import annotations
 
@@ -62,9 +63,9 @@ def synthetic(shape, phase, amplitude, offset=0.0):
     return np.ascontiguousarray(values, dtype=np.float32)
 
 
-def whole_mask(kind, case):
-    positions = np.arange(SIZE)
-    valid = np.ones(SIZE, dtype=bool)
+def whole_mask(kind, case, size=SIZE):
+    positions = np.arange(size)
+    valid = np.ones(size, dtype=bool)
     if case == "padding_holes":
         valid[positions % 11 == 0] = False
         valid[203:219] = False
@@ -74,18 +75,24 @@ def whole_mask(kind, case):
         valid[[1, 127, 255, 256, 383, 510]] = True
     elif case == "all_masked":
         valid[:] = False
+    elif case == "boundary":
+        if size != 1024:
+            raise ValueError("Boundary fixture requires size1024")
+        valid[:] = False
+        valid[[0, 512, 513, 1023]] = True
     elif case != "all_valid":
         raise ValueError(case)
     # Absolute positions, inclusive original distance <=512, no tile-relative mask.
     geometry = (np.abs(positions[:, None] - positions[None, :]) <= 512
-                if kind == "local" else np.ones((SIZE, SIZE), dtype=bool))
+                if kind == "local" else np.ones((size, size), dtype=bool))
     # Key padding plus explicit query padding gives padded query rows exact zero.
-    allowed = geometry & valid[:, None] & valid[None, :]
+    query_valid = np.ones(size, dtype=bool) if case == "boundary" else valid
+    allowed = geometry & query_valid[:, None] & valid[None, :]
     return np.ascontiguousarray(allowed[None], dtype=np.int32)
 
 
 def dense_oracle(q, k, v, allowed):
-    """Independent whole512 PyTorch attention; no tile kernel or query splitting."""
+    """Independent whole-sequence PyTorch attention; no tile kernel or query splitting."""
     import torch
     with torch.inference_mode():
         queries = torch.from_numpy(q)
@@ -118,29 +125,73 @@ def metrics(actual, gold, allowed):
             "passed": finite and empty_zero and (cosine is None or cosine >= COSINE_MIN)}
 
 
-def export(output):
+def cases_for(size):
+    return CASES + (("boundary",) if size == 1024 else ())
+
+
+def case_inputs(buffers, case):
+    prefix = "boundary_" if case == "boundary" else ""
+    return tuple(buffers[prefix + name] for name in ("q", "k", "v"))
+
+
+def boundary_contract(actual, kind):
+    """Literal mathematical expectations, independent of mask/oracle code.
+
+    Q=K=0 means uniform attention on permitted keys. First four V channels
+    identify keys0/512/513/1023, so their probabilities measure influence.
+    At query0, key512 MUST influence output and key513 MUST NOT (local).
+    Query511 also checks key1023 at exactly distance512; query512 checks key0.
+    """
+    queries = [0, 511, 512, 1023]
+    probabilities = ([[0.5, 0.5, 0.0, 0.0], [0.25] * 4, [0.25] * 4,
+                      [0.0, 1 / 3, 1 / 3, 1 / 3]] if kind == "local"
+                     else [[0.25] * 4] * 4)
+    expected = np.zeros((1, HEADS, 4, actual.shape[-1]), dtype=np.float64)
+    expected[..., :4] = probabilities
+    observed = actual[:, :, queries, :]
+    passed = bool(np.isfinite(observed).all()
+                  and np.allclose(observed, expected, rtol=0.0, atol=0.002))
+    return {"query_positions": queries, "key_positions": [0, 512, 513, 1023],
+            "expected_key_influence": probabilities, "absolute_tolerance": 0.002,
+            "max_abs": float(np.max(np.abs(observed - expected))), "passed": passed}
+
+
+def export(output, size=SIZE):
     import torch
     torch.set_num_threads(1)
     output.mkdir(parents=True, exist_ok=False)
     for kind, (kv_heads, width) in KINDS.items():
-        q = synthetic((1, HEADS, SIZE, width), 0.1, 0.025)
-        k = synthetic((1, kv_heads, SIZE, width), 0.7, 0.025)
-        v = synthetic((1, kv_heads, SIZE, width), 1.3, 0.06, offset=0.02)
-        fixture = {"q": q, "k": k, "v": v}
+        q = synthetic((1, HEADS, size, width), 0.1, 0.025)
+        k = synthetic((1, kv_heads, size, width), 0.7, 0.025)
+        v = synthetic((1, kv_heads, size, width), 1.3, 0.06, offset=0.02)
+        fixture = {"q": q, "k": k, "v": v, "native_size": np.array(size)}
+        if size == 1024:
+            boundary_v = np.zeros_like(v)
+            for channel, key in enumerate((0, 512, 513, 1023)):
+                boundary_v[:, :, key, channel] = 1.0
+            fixture.update(boundary_q=np.zeros_like(q), boundary_k=np.zeros_like(k),
+                           boundary_v=boundary_v)
         module = make_kernel(kv_heads)
         cpu_checks = {}
         with torch.inference_mode():
-            for case in CASES:
-                allowed = whole_mask(kind, case)
-                gold = dense_oracle(q, k, v, allowed)
+            for case in cases_for(size):
+                case_q, case_k, case_v = case_inputs(fixture, case)
+                allowed = whole_mask(kind, case, size)
+                gold = dense_oracle(case_q, case_k, case_v, allowed)
+                if case == "boundary" and not boundary_contract(gold, kind)["passed"]:
+                    raise RuntimeError(f"Independent oracle boundary failure: {kind}")
                 fixture[f"{case}_allowed"] = allowed
                 fixture[f"{case}_gold"] = gold
-                # Same module instance for both absolute query slices.
-                tiles = [module(torch.from_numpy(q[:, :, start:start + TILE].copy()),
-                                torch.from_numpy(k), torch.from_numpy(v),
+                # Same module instance for every absolute query slice.
+                tiles = [module(torch.from_numpy(case_q[:, :, start:start + TILE].copy()),
+                                torch.from_numpy(case_k), torch.from_numpy(case_v),
                                 torch.from_numpy(allowed[:, start:start + TILE].copy())).numpy()
-                         for start in (0, TILE)]
+                         for start in range(0, size, TILE)]
                 cpu_checks[case] = metrics(np.concatenate(tiles, axis=2), gold, allowed)
+                if case == "boundary":
+                    contract = boundary_contract(np.concatenate(tiles, axis=2), kind)
+                    cpu_checks[case]["boundary_contract"] = contract
+                    cpu_checks[case]["passed"] &= contract["passed"]
                 if not cpu_checks[case]["passed"]:
                     raise RuntimeError(f"Dense-vs-tile Torch failure: {kind}/{case}")
             # Persist full host buffers and independent dense gold BEFORE conversion.
@@ -162,18 +213,19 @@ def export(output):
             minimum_deployment_target=ct.target.macOS15,
             compute_precision=ct.precision.FLOAT16,
             compute_units=ct.ComputeUnit.CPU_AND_NE, skip_model_load=True)
-        converted.short_description = "Experimental weight-free native512 Q256 attention reuse only"
+        converted.short_description = f"Experimental weight-free native{size} Q256 attention reuse only"
         converted.save(str(output / f"{kind}_attention.mlpackage"))
         print(json.dumps({"phase": "export", "kind": kind, "seconds": time.monotonic() - started,
+                          "native_size": size, "query_starts": list(range(0, size, TILE)),
                           "skip_model_load": True, "torch_checks": cpu_checks}), flush=True)
         del converted, traced, args, q, k, v, allowed
         gc.collect()
     print("Export ready. Run --validate in a NEW process; no native validation was performed.", flush=True)
 
 
-def validate(output):
+def validate(output, size=SIZE, report_file=None):
     import coremltools as ct
-    report = {"experiment": "single_attention_graph_reuse", "native_size": SIZE,
+    report = {"experiment": "single_attention_graph_reuse", "native_size": size,
               "query_tile": TILE, "compute_units": "CPU_AND_NE", "compute_precision": "FLOAT16",
               "cosine_min_threshold": COSINE_MIN, "ane_execution_verified": False,
               "absolute_rope_verified": False, "local_boundary_verified": False,
@@ -181,32 +233,44 @@ def validate(output):
     for kind in KINDS:
         with np.load(output / f"{kind}_inputs_gold.npz", allow_pickle=False) as archive:
             buffers = {name: archive[name].copy() for name in archive.files}
+        if int(buffers.get("native_size", buffers["q"].shape[2])) != size:
+            raise ValueError("--size differs from exported fixture native_size")
         snapshots = {name: array.copy() for name, array in buffers.items()}
         started = time.monotonic()
-        # One package instance reused for both query tiles and every mask case.
+        # One package instance reused for all query tiles and every mask case.
         model = ct.models.MLModel(str(output / f"{kind}_attention.mlpackage"),
                                   compute_units=ct.ComputeUnit.CPU_AND_NE)
         results = {}
-        for case in CASES:
+        for case in cases_for(size):
+            case_q, case_k, case_v = case_inputs(buffers, case)
             allowed = buffers[f"{case}_allowed"]
             pieces = []
-            for start in (0, TILE):
-                inputs = {"q": np.ascontiguousarray(buffers["q"][:, :, start:start + TILE]),
-                          "k": buffers["k"], "v": buffers["v"],
+            for start in range(0, size, TILE):
+                inputs = {"q": np.ascontiguousarray(case_q[:, :, start:start + TILE]),
+                          "k": case_k, "v": case_v,
                           "allowed": np.ascontiguousarray(allowed[:, start:start + TILE])}
                 # Copy returned tile: a subsequent prediction must not overwrite it.
                 pieces.append(np.array(model.predict(inputs)["attended"], copy=True))
             actual = np.concatenate(pieces, axis=2)
             results[case] = metrics(actual, buffers[f"{case}_gold"], allowed)
+            if case == "boundary":
+                results[case]["boundary_contract"] = boundary_contract(actual, kind)
+                results[case]["passed"] &= results[case]["boundary_contract"]["passed"]
             report["passed"] &= results[case]["passed"]
         preserved = all(np.array_equal(array, snapshots[name]) for name, array in buffers.items())
         report["passed"] &= preserved
         report["kernels"][kind] = {"load_and_predict_seconds": time.monotonic() - started,
-                                   "package_instances": 1, "query_starts": [0, TILE],
+                                   "package_instances": 1, "query_starts": list(range(0, size, TILE)),
                                    "host_buffers_preserved": preserved, "cases": results}
         del model, buffers, snapshots, inputs, pieces, actual
         gc.collect()
-    (output / "validation.json").write_text(json.dumps(report, indent=2) + "\n")
+    report["local_boundary_verified"] = (size == 1024 and
+        report["kernels"]["local"]["cases"]["boundary"]["passed"])
+    if report_file is None:
+        with (output / "validation.json").open("x") as claimed:
+            claimed.write(json.dumps(report, indent=2) + "\n")
+    else:
+        report_file.write(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2), flush=True)
     return 0 if report["passed"] else 1
 
@@ -216,18 +280,26 @@ def main():
     parser.add_argument("--output", required=True, type=Path,
                         help="New experiment directory outside production artifacts; existing for --validate")
     parser.add_argument("--validate", action="store_true", help="Load saved packages in a separate process")
+    parser.add_argument("--size", type=int, choices=(512, 1024), default=SIZE,
+                        help="Native key/query size; use the same size for export and validation")
     args = parser.parse_args()
     output = args.output.expanduser().resolve()
-    artifacts = Path(__file__).resolve().parent / "artifacts"
-    if output == artifacts or output.is_relative_to(artifacts):
-        parser.error("--output must be outside production artifacts")
+    for root in (Path(__file__).resolve().parent, Path.cwd().resolve()):
+        if output.is_relative_to(root) and any(
+                part.startswith("artifacts") or part == "upstream"
+                for part in output.relative_to(root).parts):
+            parser.error("--output must be outside artifacts* and upstream subtrees of script parent and cwd")
     if args.validate:
         if not output.is_dir():
             parser.error("--validate requires an existing exported experiment directory")
-        return validate(output)
+        try:
+            with (output / "validation.json").open("x") as report_file:
+                return validate(output, args.size, report_file)
+        except FileExistsError:
+            parser.error("--validate requires a NEW validation.json; existing report will not be overwritten")
     if output.exists():
         parser.error("Export requires a NEW --output directory; nothing will be overwritten")
-    export(output)
+    export(output, args.size)
     return 0
 
 

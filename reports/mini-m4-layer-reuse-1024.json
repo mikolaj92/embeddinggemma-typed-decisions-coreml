@@ -1,0 +1,44 @@
+{
+  "native_size": 1024,
+  "query_tile": 256,
+  "cosine_min_threshold": 0.998,
+  "compute_units": "CPU_AND_NE",
+  "compute_precision": "FLOAT16",
+  "quality_approved": false,
+  "ane_execution_verified": false,
+  "full_encoder_verified": false,
+  "production_changed": false,
+  "layers": {
+    "local": {
+      "index": 0,
+      "package_instances": 1,
+      "query_starts": [
+        0,
+        256,
+        512,
+        768
+      ],
+      "host_buffers_preserved": true,
+      "finite": true,
+      "cosine_min_hidden_rows": 0.9999804338847326,
+      "max_abs": 0.02640587091445923,
+      "passed": true
+    },
+    "global": {
+      "index": 5,
+      "package_instances": 1,
+      "query_starts": [
+        0,
+        256,
+        512,
+        768
+      ],
+      "host_buffers_preserved": true,
+      "finite": true,
+      "cosine_min_hidden_rows": 0.9999730113296541,
+      "max_abs": 0.046808838844299316,
+      "passed": true
+    }
+  },
+  "passed": true
+}
