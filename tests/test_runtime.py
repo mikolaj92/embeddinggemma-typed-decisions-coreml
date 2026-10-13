@@ -197,21 +197,22 @@ def test_encoder_preserves_specials_padding_scale_and_rejects_overflow(runtime):
     assert len(model.calls) == 2  # fail before any partial prediction
 
 
-def test_encoder_selects_smallest_bucket_and_rejects_2049(runtime):
+@pytest.mark.parametrize("limit", [2048,4096,8192])
+def test_encoder_selects_smallest_bucket_and_rejects_overlength(runtime,limit):
     encoder_type=type(runtime.models[8])
-    runtime.max_tokens=2048
-    runtime.buckets=[512,1024,2048]
+    runtime.max_tokens=limit
+    runtime.buckets=[n for n in [512,1024,2048,4096,8192] if n<=limit]
     runtime.models={n:encoder_type(str(n),"cpu_and_ne") for n in runtime.buckets}
     runtime._input_buffers={n:{"embeddings":np.zeros((1,n,512),dtype=np.float32),"attention_mask":np.zeros((1,n),dtype=np.int32)} for n in runtime.buckets}
-    for length in [512,513,1024,1025,2048]:
+    for length in sorted({*runtime.buckets, *(n+1 for n in runtime.buckets if n<limit)}):
         runtime.encode(["short "*(length-3)])
         bucket=next(n for n in runtime.buckets if length<=n)
         assert runtime.models[bucket].calls[-1]["attention_mask"].shape==(1,bucket)
         assert runtime.models[bucket].calls[-1]["attention_mask"].sum()==length
-    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1,2,2]
+    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1]+[2]*(len(runtime.buckets)-1)
     with pytest.raises(RequestError,match="max_tokens"):
-        runtime.encode(["short "*2046])
-    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1,2,2]
+        runtime.encode(["short "*(limit-2)])
+    assert [len(runtime.models[n].calls) for n in runtime.buckets]==[1]+[2]*(len(runtime.buckets)-1)
 
 
 def test_typed_decisions_use_upstream_head_and_calibration(runtime):
@@ -305,10 +306,19 @@ def test_http_auth_size_validation_health_and_safe_failure(monkeypatch):
         )
 
         class BrokenRuntime:
+            buckets = [512,1024,2048,4096,8192]
+            max_tokens = 8192
+
             def decide(self, *args):
                 raise InferenceError("private model path and state")
 
         server.app.state.runtime = BrokenRuntime()
+        server.app.state.encoder_sha256 = "a" * 64
+        health = client.get("/health").json()
+        assert health["ready"] is True
+        assert health["max_tokens"] == 8192
+        assert health["buckets"] == BrokenRuntime.buckets
+        assert health["encoder_sha256"] == "a" * 64
         response = client.post(
             "/v1/decisions",
             headers=auth,

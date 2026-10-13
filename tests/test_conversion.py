@@ -1,4 +1,5 @@
 """Stable normalization matches independent FP32 RMSNorm, including overflow inputs."""
+import pytest
 import torch
 from types import SimpleNamespace
 from convert import StableNorm, FixedEncoder
@@ -10,6 +11,40 @@ def test_stable_norm_large_zero_and_small_values_match_fp32():
     actual=norm(x.half())
     assert torch.isfinite(actual).all()
     torch.testing.assert_close(actual.float(),expected,atol=.005,rtol=.005)
+
+@pytest.mark.parametrize("size", [4096, 8192])
+def test_fixed_encoder_accepts_large_buckets_without_allocating_tensor_storage(size):
+    # Meta tensors exercise shape construction without the quadratic mask allocation.
+    with torch.device("meta"):
+        model = SimpleNamespace(
+            layers=torch.nn.ModuleList(),
+            ple=torch.nn.Identity(),
+            norm=torch.nn.Identity(),
+            embedding_projection=torch.nn.Identity(),
+            config=SimpleNamespace(
+                layer_types=["sliding_attention", "full_attention"], sliding_window=512
+            ),
+            rotary_emb=SimpleNamespace(
+                sliding_attention_inv_freq=torch.ones(16),
+                sliding_attention_attention_scaling=1.0,
+                full_attention_inv_freq=torch.ones(16),
+                full_attention_attention_scaling=1.0,
+            ),
+        )
+        wrapper = FixedEncoder(model, size)
+    assert wrapper.size == size
+    assert wrapper.local_bias.shape == (1, size, size)
+    assert wrapper.local_bias.device.type == "meta"
+    for typ in model.config.layer_types:
+        assert wrapper.rope[typ + "_cos"].shape == (size, 32)
+        assert wrapper.rope[typ + "_sin"].shape == (size, 32)
+
+
+@pytest.mark.parametrize("size", [513, 8193, 16384])
+def test_fixed_encoder_rejects_unsupported_sizes_before_accessing_model(size):
+    with pytest.raises(ValueError, match="Supported fixed shapes"):
+        FixedEncoder(None, size)
+
 
 def test_fixed_encoder_long_context_matches_transformers_at_window_boundaries():
     from transformers import EmbeddingGemma2TextConfig, EmbeddingGemma2TextModel
