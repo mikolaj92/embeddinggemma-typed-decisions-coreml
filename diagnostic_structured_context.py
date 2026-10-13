@@ -18,7 +18,7 @@ from experiment_context import (
     claim_report_output, peak_rss_bytes,
 )
 
-COUNTS = (0, 1, 16, 128)
+COUNTS = (0, 1, 16, 128, 266)
 
 
 def structured_state(case, count):
