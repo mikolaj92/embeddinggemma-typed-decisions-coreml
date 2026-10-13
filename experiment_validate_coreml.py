@@ -26,10 +26,14 @@ def main():
         report["process_peak_rss_bytes"]=int(rss if sys.platform=="darwin" else rss*1024)
         output.parent.mkdir(parents=True,exist_ok=True)
         output.write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
+    report["stage"]="loading"
+    save()
     try:
         start=time.perf_counter()
         model=ct.models.MLModel(str(package),compute_units=ct.ComputeUnit.CPU_AND_NE)
         report["load_seconds"]=time.perf_counter()-start
+        report["stage"]="first_prediction"
+        save()
         actual=model.predict(buffers)["sentence_embedding"]
         finite=bool(np.isfinite(actual).all())
         if not finite: raise RuntimeError("Non-finite embedding")
@@ -41,6 +45,7 @@ def main():
             start=time.perf_counter(); current=model.predict(buffers)["sentence_embedding"]; times.append(time.perf_counter()-start)
             if not np.isfinite(current).all(): raise RuntimeError("Non-finite warm embedding")
         report.update(cosine=cosine,max_abs_error=float(np.abs(actual-gold).max()),embedding_norm=norm,warm_seconds=times,warm_median_seconds=float(np.median(times)),passed=cosine>=.998)
+        report["stage"]="complete"
         save(); print(json.dumps(report),flush=True)
         if not report["passed"]: raise RuntimeError("Experimental numerical gate failed")
     except Exception as exc:
