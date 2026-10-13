@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "experiment": "tiled-coreml-compiler-resource",
+  "status": "exported_not_loaded_not_quality_approved",
+  "quality_approved": false,
+  "production_changed": false,
+  "production_approved": false,
+  "scope": "Repeated-token numerical probe and export resources only. Known synthetic decision-quality gate failed; do not promote.",
+  "source_artifacts": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-8192",
+  "upstream_real_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream",
+  "output": "/private/tmp/tiled-16384-q512-experiment",
+  "size": 16384,
+  "query_tile": 512,
+  "encoder_batch_size": 1,
+  "compute_units": "CPU_AND_NE",
+  "compute_precision": "FLOAT16",
+  "skip_model_load": true,
+  "coreml_inference_validated": false,
+  "ane_placement_verified": false,
+  "hardware": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.9",
+  "argv": [
+    "/tmp/gemma-context-export-code/experiment_export.py",
+    "--artifacts",
+    "artifacts-8192",
+    "--size",
+    "16384",
+    "--query-tile",
+    "512",
+    "--output",
+    "/tmp/tiled-16384-q512-experiment"
+  ],
+  "timings_seconds": {
+    "hash_upstream": 0.44653229194227606,
+    "load_fp32_reference": 0.13785633398219943,
+    "exact_text": 0.2267890420043841,
+    "reference_embed_fp32": 34.676608041045256,
+    "tiled_fp32": 17.480000750045292,
+    "stabilized_tiled_fp32": 17.96430137497373,
+    "trace": 22.645576082984917,
+    "coreml_convert": 410.4010525000049,
+    "save_package": 0.34785983292385936,
+    "hash_package": 0.12648354202974588
+  },
+  "stage_peak_rss_bytes": {
+    "hash_upstream": 320798720,
+    "load_fp32_reference": 345653248,
+    "exact_text": 1178304512,
+    "reference_embed_fp32": 7799111680,
+    "tiled_fp32": 7799111680,
+    "stabilized_tiled_fp32": 7799111680,
+    "trace": 7799111680,
+    "coreml_convert": 9288007680,
+    "save_package": 9288007680,
+    "hash_package": 9288007680
+  },
+  "peak_rss_scope": "Process-lifetime high-water RSS; stages are cumulative, not isolated tiled/compile peaks or service RAM.",
+  "warning": "No production-compatible manifest or runtime assets are emitted.",
+  "source": "mrm8488/embeddinggemma-2-ft-typed-decision",
+  "source_revision": "09fc4497a95529ec66842caac291e21c62490fab",
+  "torch": "2.14.1",
+  "transformers": "5.19.0",
+  "torch_threads": 4,
+  "export_code_sha256": {
+    "experiment_export.py": "866b71aa2f9554363d25e9ac0b73ce7d76338347464c7a71831fa287b669f839",
+    "experimental_encoder.py": "cb9d1f32e925e01cf1c0b71408f4281b1004cf7d59eef784c2e6936e5ee2ef2d",
+    "convert.py": "9a659a332226a6a011a4f10028d8955b87c950a666b790caaada9db6f84eb126",
+    "validate_long.py": "2c5f79353c6f87ebf26577bfc592e4a82914740b122246149b165c19a47b8e59",
+    "CONTEXT_EXPERIMENTS.md": "d4eca6a2331b8d83b906f3b35a17cec166d61051406c3dad020b87bde207eb46"
+  },
+  "current_stage": "hash_package",
+  "elapsed_seconds": 516.3301000839565,
+  "process_peak_rss_bytes": 9288007680,
+  "upstream_provenance": {
+    "root": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream",
+    "tree_sha256": "a5544ca71e753561f62a8e1baa1babccd9dbe1b22e908f771305c68cd285c1a1",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/.gitattributes",
+        "bytes": 1616,
+        "sha256": "26b2495b28a82f4bb75639869ef979afafdb0703dadaaa6163533866e493d8f9"
+      },
+      {
+        "path": "README.md",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/README.md",
+        "bytes": 9254,
+        "sha256": "4064dc6a3116059a5d02bffc4c712f50380d507652199a2b699b0c709e502d06"
+      },
+      {
+        "path": "__pycache__/configuration_gemmadecision.cpython-312.pyc",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/__pycache__/configuration_gemmadecision.cpython-312.pyc",
+        "bytes": 5973,
+        "sha256": "730f1f834175cebad06ab20fb9b216b5febb95f8d483fdc20a2a7d1423561e85"
+      },
+      {
+        "path": "__pycache__/modeling_gemmadecision.cpython-312.pyc",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/__pycache__/modeling_gemmadecision.cpython-312.pyc",
+        "bytes": 39658,
+        "sha256": "8d432dd18077509311a98c26fac56c50e3d966dc6d593a283c6fadc35bdbafb5"
+      },
+      {
+        "path": "chat_template.jinja",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/chat_template.jinja",
+        "bytes": 1016,
+        "sha256": "4b852efc0b9960283e735363331e6f325b33bc74bdbaa076f595bc4e9b94d85e"
+      },
+      {
+        "path": "config.json",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/config.json",
+        "bytes": 4115,
+        "sha256": "6ce69a7d7ce225ecbb30ce92d408b814f8758046b8cff0f4bff611668256ed1b"
+      },
+      {
+        "path": "configuration_gemmadecision.py",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/configuration_gemmadecision.py",
+        "bytes": 5192,
+        "sha256": "831d2be64e5704ebea3526c5a75ba1b92cecd21f3e67c90267e1cfd2e5dfd240"
+      },
+      {
+        "path": "eg2td.png",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/eg2td.png",
+        "bytes": 101230,
+        "sha256": "296e78a4b8f8d7ecfeb4d61bb39536f95d838f643ce3301b7e088d2644c21d8a"
+      },
+      {
+        "path": "egtd-logo.png",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/egtd-logo.png",
+        "bytes": 97601,
+        "sha256": "51b8951b031e0f18f57d83e0038e78d16fc905df9f08c67c0da74d681cf2b792"
+      },
+      {
+        "path": "model.safetensors",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/model.safetensors",
+        "bytes": 1088537684,
+        "sha256": "bccbe25c9664c2997785aa4f24a50ce9cc011e8c7722e085d684ca1dbfd72e28"
+      },
+      {
+        "path": "modeling_gemmadecision.py",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/modeling_gemmadecision.py",
+        "bytes": 24783,
+        "sha256": "75dd914b2ae83e9842a816d9ada4e5f1527949a9443e02d92264c0fa4de570b8"
+      },
+      {
+        "path": "tokenizer.json",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/tokenizer.json",
+        "bytes": 32170764,
+        "sha256": "dba1bf6b56fe71d2cc69a771a037fa6a7dac2e41f33ed3e1b3254b90fa17c3a5"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "resolved_path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-long/upstream/tokenizer_config.json",
+        "bytes": 1677,
+        "sha256": "b6bcae3a241b5da4d59dceba337815179912b092cadba5470e7fbc287bbb0a9f"
+      }
+    ]
+  },
+  "source_metadata_sha256": {
+    "manifest.json": "bb15f531a12dd0abd0675920a5b6ea00da9a6ae7fd1df60352184a168fcb76df",
+    "head.safetensors": "2f1cfbd10472c09ad15d43f5855f644b3f5615077984ffa62444224aca610223"
+  },
+  "input_proof": {
+    "truncation": false,
+    "actual_tokens": 16384,
+    "attended_tokens": 16384,
+    "input_ids_sha256": "52a1ff93590995293b989619308ef1e4bbccf54d4f5342e562fa55791cb6c073",
+    "rendered_text_sha256": "b5bee170f615b99abe23e1bf5cc2e3a7f6e76ee0ea3c8d9efa1f93bcc89a685e",
+    "generator": "validate_long.exact_text",
+    "quality_benchmark": false
+  },
+  "graph_estimates": {
+    "layers": 24,
+    "full_layers": 4,
+    "local_layers": 20,
+    "query_heads": 4,
+    "query_tiles_per_head": 32,
+    "unrolled_head_tiles": 3072,
+    "attention_matmul_count_estimate": 6144,
+    "softmax_count_estimate": 3072,
+    "attention_score_elements_all_layers_heads": 6266290176,
+    "largest_single_score_tile_fp32_bytes": 33554432,
+    "ple_projection_fp32_bytes": 805306368,
+    "notes": "Attention matmul/softmax counts exclude projections and other ops. Tiling reduces intermediates, not quadratic global FLOPs. PLE and unrolled compiler graph can still dominate memory."
+  },
+  "fp32_parity_before_stabilize": {
+    "cosine": 0.9999998807907104,
+    "max_abs_error": 1.471489667892456e-07,
+    "finite": true,
+    "passed": true,
+    "minimum_cosine": 0.99999,
+    "maximum_abs_error": 0.0001
+  },
+  "fp32_parity_after_stabilize": {
+    "cosine": 0.9999998807907104,
+    "max_abs_error": 1.6205012798309326e-07,
+    "finite": true,
+    "passed": true,
+    "minimum_cosine": 0.99999,
+    "maximum_abs_error": 0.0001
+  },
+  "traced_graph_node_count": 362735,
+  "coremltools": "9.0",
+  "package_provenance": {
+    "root": "/private/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage",
+    "tree_sha256": "38822679a2c10b015521379cbbd2a40edfa1d9e93757bdd9ae681a588b923d2b",
+    "files": [
+      {
+        "path": "Data/com.apple.CoreML/model.mlmodel",
+        "resolved_path": "/private/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+        "bytes": 13723132,
+        "sha256": "7b54b96849f1d7f610c89c3ee45b1535192561dd226fb69c9d9805690b20ba82"
+      },
+      {
+        "path": "Data/com.apple.CoreML/weights/weight.bin",
+        "resolved_path": "/private/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "bytes": 347029440,
+        "sha256": "48eca9d95afcddfae16f5947da0798e3a9e8e086153596efca1f46b7d70bcb67"
+      },
+      {
+        "path": "Manifest.json",
+        "resolved_path": "/private/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage/Manifest.json",
+        "bytes": 617,
+        "sha256": "dbfc34408d30a9ffe6353b72dd08c2c4cc3c380713d851289bd6517aa3ee81f1"
+      }
+    ]
+  },
+  "probe_sha256": "c409c6d37fda867431ecad0cb6160837f78af56395552609e47b11393cbfa1e2"
+}
