@@ -22,13 +22,17 @@ Primary sources: [Google model card](https://huggingface.co/google/embeddinggemm
 
 ## First16k reference-only result (2026-10-13)
 
-FAILED independent synthetic quality gate: short safe/unsafe evidence2/2 correct and sequential original-head scoring matches original decide within1e-5 probability tolerance. At16k, safe beginning/middle/end3/3 correct; unsafe beginning/middle/end0/3, all predicted false (no review) despite unauthorized irreversible deletion of last backup. Long truth accuracy50%. Exact untruncated token-ID and mask checks passed; this is not a truncation failure. Reports/mini-m4-context-16k-quality.json records configurations and provenance. These six synthetic inputs do not establish general accuracy; however false-safe errors are a concrete reason NOT to promote16k. Native4k/8k controls are running to separate length-OOD from mean-pooling/head evidence dilution. Production remains8192. A tiled encoder solves allocation, not this quality failure.
+FAILED independent synthetic quality gate: short safe/unsafe evidence2/2 correct and sequential original-head scoring matches original decide within1e-5 probability tolerance. At16k, safe beginning/middle/end3/3 correct; unsafe beginning/middle/end0/3, all predicted false (no review) despite unauthorized irreversible deletion of last backup. Long truth accuracy50%. Exact untruncated token-ID and mask checks passed; this is not a truncation failure. Reports/mini-m4-context-16k-quality.json records configurations and provenance. These six synthetic inputs do not establish general accuracy; however false-safe errors are a concrete reason NOT to promote16k. Native4k/8k controls completed: safe cases3/3 correct at each length, unsafe cases0/3 at each length. Thus this failure exists inside native context and cannot be attributed solely to16k extrapolation. Evidence dilution/mean pooling or head distribution shift are hypotheses, not established root cause. See reports/mini-m4-context-native-quality-control.json. Prior production parity establishes conversion correctness, not semantic safety. Production remains8192. A tiled encoder solves allocation, not this quality failure.
 
 ## Transport and calibration caveats
 
 Current API body cap262144 bytes and aggregate rendered text cap524288 bytes are independent of token limits. Instructions/criterion strings have8192-character caps. Many64k/128k text requests will exceed the body limit even if the encoder can represent them. Do not weaken these guards automatically; a later explicitly budgeted API transport design must preserve denial-of-service bounds.
 
 The original trained head uses mean-pooled state embeddings and fixed FP32 temperatures. A single important fact can be diluted by long filler. Parity against the reference does not measure task accuracy or calibration. The first probe includes paired truth labels; broader multilingual heldout validation is needed before production approval.
+
+## Tiled pilot status
+
+Standalone experimental_encoder.py changes query computation only: tiles256/512, all global keys, local absolute distance<=512, no square constructor mask, original absolute RoPE and PLE.27 independent tiny-model tests pass on mini, including GQA, window/seams, holes/empty padded tails, valid-output padding isolation. Constructor powers through131072 pass meta-memory allocation checks; this is not real128k inference. No real-weight CoreML export or load measured yet. The pilot is NOT imported by production runtime or converter.
 
 ## Stage gates
 
