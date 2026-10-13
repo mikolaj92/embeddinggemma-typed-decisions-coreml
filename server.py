@@ -32,6 +32,8 @@ async def lifespan(app: FastAPI):
             "DECISIONS_ARTIFACTS", str(Path(__file__).parent / "artifacts")
         )
         app.state.runtime = DecisionRuntime(artifacts)
+        from integrity import package_sha256
+        app.state.encoder_sha256 = package_sha256(artifacts)
     yield
     app.state.runtime = None
     app.state.api_key = ""
@@ -115,6 +117,7 @@ def health():
     result = {"status": "ok", "ready": runtime is not None and bool(getattr(app.state, "api_key", ""))}
     if runtime is not None and hasattr(runtime, "buckets"):
         result.update(max_tokens=runtime.max_tokens, buckets=runtime.buckets)
+        result["encoder_sha256"] = getattr(app.state, "encoder_sha256", None)
     return result
 
 

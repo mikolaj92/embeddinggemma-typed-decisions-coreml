@@ -1,0 +1,199 @@
+{
+  "host": "mini-m4-0.localdomain",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "buckets": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "max_tokens": 4096,
+  "boundary_embeddings": [
+    {
+      "tokens": 32,
+      "bucket": 512,
+      "cosine": 0.9999860525131226,
+      "max_abs_error": 0.0006299698725342751,
+      "warm_seconds_median": 0.028881208039820194,
+      "passed": true
+    },
+    {
+      "tokens": 512,
+      "bucket": 512,
+      "cosine": 0.9999454021453857,
+      "max_abs_error": 0.0013525839895009995,
+      "warm_seconds_median": 0.029479042044840753,
+      "passed": true
+    },
+    {
+      "tokens": 513,
+      "bucket": 1024,
+      "cosine": 0.9999362230300903,
+      "max_abs_error": 0.0013977233320474625,
+      "warm_seconds_median": 0.08172875002492219,
+      "passed": true
+    },
+    {
+      "tokens": 1024,
+      "bucket": 1024,
+      "cosine": 0.9998970031738281,
+      "max_abs_error": 0.0015574190765619278,
+      "warm_seconds_median": 0.08245850005187094,
+      "passed": true
+    },
+    {
+      "tokens": 1025,
+      "bucket": 2048,
+      "cosine": 0.9998979568481445,
+      "max_abs_error": 0.0016772449016571045,
+      "warm_seconds_median": 0.2639098330400884,
+      "passed": true
+    },
+    {
+      "tokens": 1536,
+      "bucket": 2048,
+      "cosine": 0.9999170303344727,
+      "max_abs_error": 0.0015024244785308838,
+      "warm_seconds_median": 0.2663373750401661,
+      "passed": true
+    },
+    {
+      "tokens": 2048,
+      "bucket": 2048,
+      "cosine": 0.9999134540557861,
+      "max_abs_error": 0.0015285806730389595,
+      "warm_seconds_median": 0.26510191697161645,
+      "passed": true
+    },
+    {
+      "tokens": 2049,
+      "bucket": 4096,
+      "cosine": 0.9998981952667236,
+      "max_abs_error": 0.0016444921493530273,
+      "warm_seconds_median": 0.9225727079901844,
+      "passed": true
+    },
+    {
+      "tokens": 3072,
+      "bucket": 4096,
+      "cosine": 0.9998658895492554,
+      "max_abs_error": 0.0019275173544883728,
+      "warm_seconds_median": 0.9243511249078438,
+      "passed": true
+    },
+    {
+      "tokens": 4096,
+      "bucket": 4096,
+      "cosine": 0.9998422265052795,
+      "max_abs_error": 0.0024836119264364243,
+      "warm_seconds_median": 0.9244287500623614,
+      "passed": true
+    }
+  ],
+  "long_decisions": [
+    {
+      "state_base_tokens": 513,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.0007315278053283691,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 513,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0008851885795593262,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 513,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.000527501106262207,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.0013287067413330078,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0013319849967956543,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 1025,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.0020509958267211914,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.001223921775817871,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.0025988221168518066,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 2000,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.0010429620742797852,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 4048,
+      "question": "action",
+      "reference_label": "review",
+      "coreml_label": "review",
+      "max_probability_abs_error": 0.0024639368057250977,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 4048,
+      "question": "risk",
+      "reference_label": "2",
+      "coreml_label": "2",
+      "max_probability_abs_error": 0.006822258234024048,
+      "passed": true
+    },
+    {
+      "state_base_tokens": 4048,
+      "question": "needs_review",
+      "reference_label": "false",
+      "coreml_label": "false",
+      "max_probability_abs_error": 0.001805424690246582,
+      "passed": true
+    }
+  ],
+  "overlength_tokens": 4097,
+  "overlength_rejected": true,
+  "process_peak_rss_bytes": 8909914112,
+  "encoder_sha256": "655d61224e9f7dfba0979495ee3fc130e3477ad19eb96942c59782711c5072c2",
+  "source_revision": "09fc4497a95529ec66842caac291e21c62490fab",
+  "compute_units": "CPU_AND_NE",
+  "ane_execution_trace_verified": false,
+  "passed": true
+}

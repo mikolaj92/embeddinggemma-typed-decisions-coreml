@@ -1,0 +1,21 @@
+{
+  "idle_cycles": 6,
+  "idle_seconds_each": 20,
+  "pid_stable": true,
+  "passed": true,
+  "status": "ready",
+  "buckets": [
+    512,
+    1024,
+    2048,
+    4096,
+    8192
+  ],
+  "encoder_sha256": "dae8a9b2fde202d0dcaa768c2a7c2cf87bb787fb0c6b5ea8d8758164ddab1e5a",
+  "rollback_script": "/Users/mini-m4-0/.config/typed-decisions/run-before-long-context-1791913051398583000.sh",
+  "port": 8005,
+  "max_tokens": 8192,
+  "overlength_tokens": 8193,
+  "overlength_status": 422,
+  "rollback_2048_preserved": true
+}

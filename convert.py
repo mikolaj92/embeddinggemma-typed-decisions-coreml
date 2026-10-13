@@ -43,8 +43,8 @@ def rotate(x):
 class FixedEncoder(nn.Module):
     def __init__(self, text_model, size):
         super().__init__()
-        if size not in (512, 1024, 2048):
-            raise ValueError("Supported fixed shapes: 512, 1024, 2048")
+        if size not in (512, 1024, 2048, 4096, 8192):
+            raise ValueError("Supported fixed shapes: 512, 1024, 2048, 4096, 8192")
         self.size = size
         self.layers = text_model.layers
         self.ple = text_model.ple
@@ -139,7 +139,12 @@ def main():
     if not torch.isfinite(stable).all() or (stable-expected).abs().max().item()>1e-4:
         raise RuntimeError("Stable normalization failed FP32 parity")
     print("Tracing fixed encoder",flush=True)
-    traced=torch.jit.trace(wrapper,(embeds,mask),check_trace=False)
+    # Tracing is inference only; autograd retains every dense attention activation.
+    # At 8192 this would retain gigabytes per layer unnecessarily.
+    for parameter in wrapper.parameters():
+        parameter.requires_grad_(False)
+    with torch.no_grad():
+        traced=torch.jit.trace(wrapper,(embeds,mask),check_trace=False)
     import coremltools as ct
     print("Converting Core ML",flush=True)
     converted=ct.convert(traced,inputs=[ct.TensorType(name="embeddings",shape=embeds.shape,dtype=np.float32),ct.TensorType(name="attention_mask",shape=mask.shape,dtype=np.int32)],outputs=[ct.TensorType(name="sentence_embedding",dtype=np.float32)],minimum_deployment_target=ct.target.macOS15,compute_precision=ct.precision.FLOAT16,compute_units=ct.ComputeUnit.CPU_AND_NE,skip_model_load=True)

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import logging
 import math
 import re
 import sys
@@ -229,9 +230,11 @@ class DecisionRuntime:
             path = (self.artifacts / filename).resolve()
             if not path.is_relative_to(self.artifacts):
                 raise ValueError("model path escapes artifact directory")
+            logging.getLogger(__name__).warning("Loading Core ML bucket %s with CPU_AND_NE", bucket)
             self.models[bucket] = ct.models.MLModel(
                 str(path), compute_units=ct.ComputeUnit.CPU_AND_NE
             )
+            logging.getLogger(__name__).warning("Core ML bucket %s loaded", bucket)
             self._input_buffers[bucket] = {
                 "embeddings": np.zeros((1, bucket, 512), dtype=np.float32),
                 "attention_mask": np.zeros((1, bucket), dtype=np.int32),
