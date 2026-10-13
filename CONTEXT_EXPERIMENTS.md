@@ -20,6 +20,10 @@ These are algebraic single-tensor sizes, not measured peak memory or latency. Mu
 
 Primary sources: [Google model card](https://huggingface.co/google/embeddinggemma-2/raw/main/README.md) explicitly advertises8192; [Google config](https://huggingface.co/google/embeddinggemma-2/raw/main/config.json) has positional ceiling262144. The pinned decision config was independently inspected; a larger positional ceiling is not a claim of long-context training or quality.
 
+## First16k reference-only result (2026-10-13)
+
+FAILED independent synthetic quality gate: short safe/unsafe evidence2/2 correct and sequential original-head scoring matches original decide within1e-5 probability tolerance. At16k, safe beginning/middle/end3/3 correct; unsafe beginning/middle/end0/3, all predicted false (no review) despite unauthorized irreversible deletion of last backup. Long truth accuracy50%. Exact untruncated token-ID and mask checks passed; this is not a truncation failure. Reports/mini-m4-context-16k-quality.json records configurations and provenance. These six synthetic inputs do not establish general accuracy; however false-safe errors are a concrete reason NOT to promote16k. Native4k/8k controls are running to separate length-OOD from mean-pooling/head evidence dilution. Production remains8192. A tiled encoder solves allocation, not this quality failure.
+
 ## Transport and calibration caveats
 
 Current API body cap262144 bytes and aggregate rendered text cap524288 bytes are independent of token limits. Instructions/criterion strings have8192-character caps. Many64k/128k text requests will exceed the body limit even if the encoder can represent them. Do not weaken these guards automatically; a later explicitly budgeted API transport design must preserve denial-of-service bounds.
