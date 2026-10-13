@@ -18,6 +18,10 @@ Thanks to [FluidInference](https://huggingface.co/FluidInference/embeddinggemma-
 - Multilingual model, English-trained decision schemas. Validate Polish workflows separately.
 - macOS 15+ Apple Silicon, Python 3.12. Stack pinned in uv.lock. coremltools warns this newer PyTorch is outside its tested-version range; real conversion tests are required.
 
+## Experimental context beyond8192
+
+See [CONTEXT_EXPERIMENTS.md](CONTEXT_EXPERIMENTS.md) and the `experiment/context-16k-128k` branch. Isolated16k tiled FP32 and export research does **not** extend production support. Raw-text false-safe failures were reproduced within native context (even75tokens); a frozen12-case held-out synthetic benchmark gave4/12 short original-model answers correct. This is not a representative accuracy estimate, but concrete evidence against treating the model as a general reasoning engine or sole safety authority. Original structured trace fields preserve the tested factual pair through16k, with a near-boundary unsafe margin; that limited diagnostic does not override failures or approve rollout. Larger32k/64k/128k remain unvalidated. Production8192 and rollback2048 are unchanged.
+
 ## Reproduce
 
 Install [uv](https://docs.astral.sh/uv/), then:
