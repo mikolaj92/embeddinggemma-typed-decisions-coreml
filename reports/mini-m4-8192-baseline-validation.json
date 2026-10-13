@@ -1,0 +1,19 @@
+{
+  "host": "mini-m4-0.localdomain",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "encoder_texts": 121,
+  "cosine_min": 0.9998648166656494,
+  "cosine_mean": 0.9999855160713196,
+  "max_embedding_abs_error": 0.0023571932688355446,
+  "probability_max_abs_error": 0.006462961435317993,
+  "label_matches": 27,
+  "questions": 27,
+  "encode_seconds": 4.02252729202155,
+  "overlength_rejected": true,
+  "compute_units": "CPU_AND_NE",
+  "ane_placement_verified": false,
+  "passed": true,
+  "encoder_sha256": "dae8a9b2fde202d0dcaa768c2a7c2cf87bb787fb0c6b5ea8d8758164ddab1e5a",
+  "source_revision": "09fc4497a95529ec66842caac291e21c62490fab",
+  "max_tested_tokens": 512
+}
