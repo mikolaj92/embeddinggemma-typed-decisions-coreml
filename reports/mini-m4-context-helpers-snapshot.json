@@ -1,0 +1,38 @@
+{
+  "scope": "contemporaneous helper source snapshot, not historical identity attestation",
+  "python": "3.12.9 (main, Feb 12 2025, 15:09:19) [Clang 19.1.6 ]",
+  "files": {
+    "diagnostic_context_sweep": {
+      "path": "/private/tmp/diagnostic_context_sweep.py",
+      "sha256": "52b6e2173180d32eb0c072344b5ca6ebc01ae0b000381f4b9cc5036a069e8777"
+    },
+    "experiment_context": {
+      "path": "/private/tmp/experiment_context.py",
+      "sha256": "28128ef74026532ae989c2cea0bcc690da3345bd8c5c8e963408762d9d3be63d"
+    },
+    "diagnostic_structured_context": {
+      "path": "/private/tmp/diagnostic_structured_context.py",
+      "sha256": "8fd6f78cf10dd10dfee33f966e3c537dbd9e7c96650d78d1d55ca9bd89af8005"
+    },
+    "diagnostic_tiled_structured": {
+      "path": "/private/tmp/diagnostic_tiled_structured.py",
+      "sha256": "f0a2e9b7df2e1e4de2f230ccfcddbd1a80fe407a164eed83e84a48eaf546acd5"
+    },
+    "experimental_encoder": {
+      "path": "/private/tmp/experimental_encoder.py",
+      "sha256": "cb9d1f32e925e01cf1c0b71408f4281b1004cf7d59eef784c2e6936e5ee2ef2d"
+    },
+    "convert": {
+      "path": "/private/tmp/convert.py",
+      "sha256": "84b55efdfeef8b33a2f482f35a6f845717697d5b491888a3bf2cc26f1972cb2a"
+    },
+    "runtime": {
+      "path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/runtime.py",
+      "sha256": "c6a575ef2243e251f875ffe1a1297543dec203df32b3120f7a4ad63f69942135"
+    },
+    "integrity": {
+      "path": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/integrity.py",
+      "sha256": "e4511355ef40e789ed6fed16f34ddb7e8aadd7c560336691614fd706b3996b1e"
+    }
+  }
+}
