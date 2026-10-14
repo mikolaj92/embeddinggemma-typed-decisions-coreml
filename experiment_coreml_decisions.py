@@ -53,6 +53,9 @@ def main():
     except OSError as exc:
         parser.error(f"Cannot exclusively claim output: {exc}")
 
+    import importlib.util
+    def code_path(name):
+        return Path(__file__) if name == "experiment_coreml_decisions.py" else Path(importlib.util.find_spec(name[:-3]).origin)
     start = time.perf_counter()
     report = {
         "schema_version": 1, "experiment": "isolated-coreml-16k-original-decisions",
@@ -65,7 +68,7 @@ def main():
         "questions": QUESTIONS, "cases": [], "status": "incomplete",
         "decision_algorithm": "Original renderer/head/temperature/noul argmax; CoreML state encoder; cached original short embed",
         "source_sha256": {
-            name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+            name: hashlib.sha256(code_path(name).read_bytes()).hexdigest()
             for name in ("experiment_coreml_decisions.py", "experiment_context.py",
                          "diagnostic_structured_context.py", "diagnostic_tiled_structured.py",
                          "convert.py", "runtime.py")
