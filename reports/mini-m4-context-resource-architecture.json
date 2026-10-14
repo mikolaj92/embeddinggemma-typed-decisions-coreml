@@ -1,0 +1,223 @@
+{
+  "unique_weight_buffer_bytes": 1088484480,
+  "layers": [
+    {
+      "index": 0,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 1,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 2,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 3,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 4,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 5,
+      "type": "full_attention",
+      "q_width": 2048,
+      "kv_width": 512,
+      "head_dim": 512,
+      "groups": 4,
+      "mlp_width": 2048
+    },
+    {
+      "index": 6,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 7,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 8,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 9,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 10,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 11,
+      "type": "full_attention",
+      "q_width": 2048,
+      "kv_width": 512,
+      "head_dim": 512,
+      "groups": 4,
+      "mlp_width": 2048
+    },
+    {
+      "index": 12,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 13,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 14,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 15,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 16,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 17,
+      "type": "full_attention",
+      "q_width": 2048,
+      "kv_width": 512,
+      "head_dim": 512,
+      "groups": 4,
+      "mlp_width": 2048
+    },
+    {
+      "index": 18,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 19,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 20,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 21,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 22,
+      "type": "sliding_attention",
+      "q_width": 1024,
+      "kv_width": 512,
+      "head_dim": 256,
+      "groups": 2,
+      "mlp_width": 2048
+    },
+    {
+      "index": 23,
+      "type": "full_attention",
+      "q_width": 2048,
+      "kv_width": 512,
+      "head_dim": 512,
+      "groups": 4,
+      "mlp_width": 2048
+    }
+  ],
+  "native_limit": 8192,
+  "positional_limit": 262144
+}
