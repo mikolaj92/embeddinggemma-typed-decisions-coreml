@@ -276,7 +276,7 @@ def main():
         for parameter in ref.parameters():
             parameter.requires_grad_(False)
         report["original_config"] = config
-        if args.execute and args.tokens > 16384 and prior.get("original_config") != config:
+        if args.execute and args.tokens > 16384 and prior.get("original_config") != json.loads(json.dumps(config)):
             raise RuntimeError("Prior original configuration differs")
         spec = up.parse_question("needs_review", QUESTIONS["needs_review"])
         if spec.kind != "noul" or tuple(spec.options) != ("false", "true"):
