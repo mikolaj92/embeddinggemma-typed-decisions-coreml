@@ -1,0 +1,69 @@
+{
+  "experiment": "original_weight_sliced_PLE",
+  "scope": "projection output rows and token tiles only; not attention/quality approval",
+  "cases": [
+    {
+      "tokens": 512,
+      "layer_errors": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_abs": 0.0,
+      "passed": true
+    },
+    {
+      "tokens": 1024,
+      "layer_errors": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_abs": 0.0,
+      "passed": true
+    }
+  ],
+  "process_peak_rss_bytes": 615366656
+}
