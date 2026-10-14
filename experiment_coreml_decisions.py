@@ -1,6 +1,6 @@
 """Four isolated 16k Core ML decisions; synthetic diagnostic, never approval.
 
-Explicit CLI: --package EXISTING.mlpackage --upstream LOCAL_CHECKPOINT --output NEW.json
+Explicit CLI: --package EXISTING.mlpackage --upstream LOCAL_CHECKPOINT --export-report EXPORT.json --output NEW.json
 No export, dense long-reference inference, config override, or production change.
 """
 from __future__ import annotations
@@ -25,10 +25,64 @@ def sha(text):
     return hashlib.sha256(text.encode()).hexdigest()
 
 
+def file_sha256(path):
+    """Bounded-memory hashing; never materialize checkpoint weights in Python."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def verified_identity(package, checkpoint, export_path):
+    """Bind this pair to the original export's path-sensitive provenance schema."""
+    evidence = json.loads(export_path.read_text())
+    if (not isinstance(evidence, dict) or evidence.get("schema_version") != 1
+            or evidence.get("experiment") != "tiled-coreml-compiler-resource"
+            or evidence.get("size") != SIZE):
+        raise ValueError("Expected original 16384 tiled export report")
+    expected_package = evidence["package_provenance"]
+    records = []
+    digest = hashlib.sha256()
+    for path in sorted(package.rglob("*")):
+        if path.is_file():
+            record = {"path": path.relative_to(package).as_posix(),
+                      "resolved_path": str(path.resolve()),
+                      "bytes": path.stat().st_size, "sha256": file_sha256(path)}
+            records.append(record)
+            digest.update(json.dumps(record, sort_keys=True).encode() + b"\0")
+    if (not records or records != expected_package["files"]
+            or digest.hexdigest() != expected_package["tree_sha256"]
+            or str(package) != expected_package["root"]):
+        raise ValueError("Package content/path differs from original export provenance")
+    expected_files = {record["path"]: record for record in evidence["upstream_provenance"]["files"]}
+    names = ("model.safetensors", "config.json", "modeling_gemmadecision.py",
+             "configuration_gemmadecision.py", "tokenizer.json", "tokenizer_config.json")
+    actual = {}
+    for name in names:
+        path = checkpoint / name
+        actual[name] = file_sha256(path)
+        if actual[name] != expected_files[name]["sha256"]:
+            raise ValueError(f"Upstream {name} differs from original export provenance")
+    config = json.loads((checkpoint / "config.json").read_text())
+    if (config.get("pooling_include_prompt") is not True
+            or config.get("projections") != [] or config.get("embed_dim") != 768
+            or config.get("max_seq_length") != 8192):
+        raise ValueError("Checkpoint violates original prompt-pooling/projection/768/native8192 ABI")
+    return {"verified_against_export_report": True, "export_report": str(export_path),
+            "export_report_sha256": file_sha256(export_path),
+            "package_tree_sha256": digest.hexdigest(), "upstream_file_sha256": actual,
+            "head_temperatures_identity": "Bound by upstream model.safetensors content hash",
+            "export_declared_source": evidence.get("source"),
+            "export_declared_source_revision": evidence.get("source_revision"),
+            "warning": "Export-relative identity, not independent Hugging Face revision authentication; files must remain immutable during execution"}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--package", type=Path, required=True)
     parser.add_argument("--upstream", type=Path, required=True)
+    parser.add_argument("--export-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     package, checkpoint = args.package.resolve(), args.upstream.resolve()
@@ -47,11 +101,9 @@ def main():
     if any(output.is_relative_to(p) for p in protected):
         parser.error("Output must be outside package, artifacts, and real upstream")
     try:
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        # Retain exclusive ownership of this handle for all incremental updates.
-        stream = args.output.open("x", encoding="utf-8")
-    except OSError as exc:
-        parser.error(f"Cannot exclusively claim output: {exc}")
+        identity = verified_identity(package, checkpoint, args.export_report.resolve())
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        parser.error(f"Artifact identity validation failed: {exc}")
 
     import importlib.util
     def code_path(name):
@@ -63,6 +115,7 @@ def main():
         "quality_approved": False, "production_approved": False,
         "production_changed": False, "quality_gate": None,
         "package": str(package), "upstream": str(checkpoint),
+        "artifact_identity": identity,
         "compute_units": "CPU_AND_NE", "torch_threads": 2,
         "dense_long_reference_inference": False, "workflow": WORKFLOW,
         "questions": QUESTIONS, "cases": [], "status": "incomplete",
@@ -83,8 +136,14 @@ def main():
         stream.truncate()
         stream.flush()
 
-    save("before_reference_load")
     try:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        # Retain the exclusively claimed handle; all following work is under finally.
+        stream = args.output.open("x", encoding="utf-8")
+    except OSError as exc:
+        parser.error(f"Cannot exclusively claim output: {exc}")
+    try:
+        save("before_reference_load")
         import numpy as np
         import torch
         import coremltools as ct
@@ -94,14 +153,15 @@ def main():
         torch.set_num_interop_threads(2)
         load_start = time.perf_counter()
         ref = reference(checkpoint).cpu().float().eval()
-        report.update(source=SOURCE, source_revision=REVISION,
+        report.update(declared_source=SOURCE, declared_source_revision=REVISION,
                       reference_load_seconds=time.perf_counter() - load_start)
         upstream = sys.modules[type(ref).__module__]
         tokenizer = ref.get_tokenizer()
         config = ref.config.to_dict()
         report.update(original_config=config, native_limit=ref.config.max_seq_length)
-        if ref.config.max_seq_length != 8192:
-            raise RuntimeError("Expected unchanged native 8192 configuration")
+        if (ref.config.max_seq_length != 8192 or ref.config.pooling_include_prompt is not True
+                or ref.config.projections != [] or ref.config.embed_dim != 768):
+            raise RuntimeError("Expected unchanged native8192/prompt-pooling/no-projections/768 ABI")
         if any(p.device.type != "cpu" or p.dtype != torch.float32 for p in ref.parameters()):
             raise RuntimeError("Original reference must be FP32 CPU")
         spec = upstream.parse_question("needs_review", QUESTIONS["needs_review"])

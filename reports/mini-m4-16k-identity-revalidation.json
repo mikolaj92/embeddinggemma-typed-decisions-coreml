@@ -1,0 +1,94 @@
+{
+  "package_provenance": {
+    "root": "/tmp/tiled-16384-q512-experiment/ExperimentalTiled16384Q512.mlpackage",
+    "files": [
+      {
+        "path": "Data/com.apple.CoreML/model.mlmodel",
+        "matches": true,
+        "sha256": "7b54b96849f1d7f610c89c3ee45b1535192561dd226fb69c9d9805690b20ba82"
+      },
+      {
+        "path": "Data/com.apple.CoreML/weights/weight.bin",
+        "matches": true,
+        "sha256": "48eca9d95afcddfae16f5947da0798e3a9e8e086153596efca1f46b7d70bcb67"
+      },
+      {
+        "path": "Manifest.json",
+        "matches": true,
+        "sha256": "dbfc34408d30a9ffe6353b72dd08c2c4cc3c380713d851289bd6517aa3ee81f1"
+      }
+    ],
+    "passed": true
+  },
+  "upstream_provenance": {
+    "root": "/Users/mini-m4-0/Developer/embeddinggemma-typed-decisions-coreml/artifacts-8192/upstream",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "matches": true,
+        "sha256": "26b2495b28a82f4bb75639869ef979afafdb0703dadaaa6163533866e493d8f9"
+      },
+      {
+        "path": "README.md",
+        "matches": true,
+        "sha256": "4064dc6a3116059a5d02bffc4c712f50380d507652199a2b699b0c709e502d06"
+      },
+      {
+        "path": "__pycache__/configuration_gemmadecision.cpython-312.pyc",
+        "matches": true,
+        "sha256": "730f1f834175cebad06ab20fb9b216b5febb95f8d483fdc20a2a7d1423561e85"
+      },
+      {
+        "path": "__pycache__/modeling_gemmadecision.cpython-312.pyc",
+        "matches": true,
+        "sha256": "8d432dd18077509311a98c26fac56c50e3d966dc6d593a283c6fadc35bdbafb5"
+      },
+      {
+        "path": "chat_template.jinja",
+        "matches": true,
+        "sha256": "4b852efc0b9960283e735363331e6f325b33bc74bdbaa076f595bc4e9b94d85e"
+      },
+      {
+        "path": "config.json",
+        "matches": true,
+        "sha256": "6ce69a7d7ce225ecbb30ce92d408b814f8758046b8cff0f4bff611668256ed1b"
+      },
+      {
+        "path": "configuration_gemmadecision.py",
+        "matches": true,
+        "sha256": "831d2be64e5704ebea3526c5a75ba1b92cecd21f3e67c90267e1cfd2e5dfd240"
+      },
+      {
+        "path": "eg2td.png",
+        "matches": true,
+        "sha256": "296e78a4b8f8d7ecfeb4d61bb39536f95d838f643ce3301b7e088d2644c21d8a"
+      },
+      {
+        "path": "egtd-logo.png",
+        "matches": true,
+        "sha256": "51b8951b031e0f18f57d83e0038e78d16fc905df9f08c67c0da74d681cf2b792"
+      },
+      {
+        "path": "model.safetensors",
+        "matches": true,
+        "sha256": "bccbe25c9664c2997785aa4f24a50ce9cc011e8c7722e085d684ca1dbfd72e28"
+      },
+      {
+        "path": "modeling_gemmadecision.py",
+        "matches": true,
+        "sha256": "75dd914b2ae83e9842a816d9ada4e5f1527949a9443e02d92264c0fa4de570b8"
+      },
+      {
+        "path": "tokenizer.json",
+        "matches": true,
+        "sha256": "dba1bf6b56fe71d2cc69a771a037fa6a7dac2e41f33ed3e1b3254b90fa17c3a5"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "matches": true,
+        "sha256": "b6bcae3a241b5da4d59dceba337815179912b092cadba5470e7fbc287bbb0a9f"
+      }
+    ],
+    "passed": true
+  }
+}
