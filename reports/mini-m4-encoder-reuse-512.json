@@ -1,0 +1,743 @@
+{
+  "native_size": 512,
+  "query_tile": 256,
+  "quality_approved": false,
+  "ane_execution_verified": false,
+  "texts": [
+    {
+      "index": 0,
+      "layers": [
+        {
+          "index": 0,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999949310892119,
+          "max_abs": 0.01673269271850586,
+          "passed": true
+        },
+        {
+          "index": 1,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999818918862813,
+          "max_abs": 0.013708114624023438,
+          "passed": true
+        },
+        {
+          "index": 2,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999628302390465,
+          "max_abs": 0.020002923905849457,
+          "passed": true
+        },
+        {
+          "index": 3,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999378626485116,
+          "max_abs": 0.0504411906003952,
+          "passed": true
+        },
+        {
+          "index": 4,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999140525968306,
+          "max_abs": 0.08970415592193604,
+          "passed": true
+        },
+        {
+          "index": 5,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9998961782985498,
+          "max_abs": 0.11331462860107422,
+          "passed": true
+        },
+        {
+          "index": 6,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999836701669685,
+          "max_abs": 0.07450485229492188,
+          "passed": true
+        },
+        {
+          "index": 7,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999962891226006,
+          "max_abs": 0.08939743041992188,
+          "passed": true
+        },
+        {
+          "index": 8,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999399256361605,
+          "max_abs": 0.11885452270507812,
+          "passed": true
+        },
+        {
+          "index": 9,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999090474015838,
+          "max_abs": 0.1248931884765625,
+          "passed": true
+        },
+        {
+          "index": 10,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999049007993704,
+          "max_abs": 0.0762752890586853,
+          "passed": true
+        },
+        {
+          "index": 11,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999778566057997,
+          "max_abs": 0.09566116333007812,
+          "passed": true
+        },
+        {
+          "index": 12,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999975834136694,
+          "max_abs": 0.12546730041503906,
+          "passed": true
+        },
+        {
+          "index": 13,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999378430178874,
+          "max_abs": 0.15925979614257812,
+          "passed": true
+        },
+        {
+          "index": 14,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999891559670865,
+          "max_abs": 0.16886615753173828,
+          "passed": true
+        },
+        {
+          "index": 15,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9998567614081165,
+          "max_abs": 0.22335195541381836,
+          "passed": true
+        },
+        {
+          "index": 16,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999764441803437,
+          "max_abs": 0.21262359619140625,
+          "passed": true
+        },
+        {
+          "index": 17,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999570255858687,
+          "max_abs": 0.314910888671875,
+          "passed": true
+        },
+        {
+          "index": 18,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999669237237667,
+          "max_abs": 0.3969459533691406,
+          "passed": true
+        },
+        {
+          "index": 19,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999513903227367,
+          "max_abs": 0.4005012512207031,
+          "passed": true
+        },
+        {
+          "index": 20,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999450828741372,
+          "max_abs": 0.355804443359375,
+          "passed": true
+        },
+        {
+          "index": 21,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999378657396331,
+          "max_abs": 0.3697052001953125,
+          "passed": true
+        },
+        {
+          "index": 22,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999931036288902,
+          "max_abs": 0.33626556396484375,
+          "passed": true
+        },
+        {
+          "index": 23,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9998620260236403,
+          "max_abs": 0.4652748107910156,
+          "passed": true
+        }
+      ],
+      "final_embedding": {
+        "finite": true,
+        "cosine_min_hidden_rows": 0.9999865786710999,
+        "max_abs": 0.0005260314792394638,
+        "passed": true
+      }
+    },
+    {
+      "index": 1,
+      "layers": [
+        {
+          "index": 0,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999944285015544,
+          "max_abs": 0.015177726745605469,
+          "passed": true
+        },
+        {
+          "index": 1,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999862145702975,
+          "max_abs": 0.015004158020019531,
+          "passed": true
+        },
+        {
+          "index": 2,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999691501283587,
+          "max_abs": 0.019465923309326172,
+          "passed": true
+        },
+        {
+          "index": 3,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999627018990804,
+          "max_abs": 0.03621567785739899,
+          "passed": true
+        },
+        {
+          "index": 4,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999734533972147,
+          "max_abs": 0.040109068155288696,
+          "passed": true
+        },
+        {
+          "index": 5,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999729846206693,
+          "max_abs": 0.05718827247619629,
+          "passed": true
+        },
+        {
+          "index": 6,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999961737638794,
+          "max_abs": 0.08519363403320312,
+          "passed": true
+        },
+        {
+          "index": 7,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999910469935751,
+          "max_abs": 0.09642410278320312,
+          "passed": true
+        },
+        {
+          "index": 8,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999821364016033,
+          "max_abs": 0.13300323486328125,
+          "passed": true
+        },
+        {
+          "index": 9,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999601485627845,
+          "max_abs": 0.09672927856445312,
+          "passed": true
+        },
+        {
+          "index": 10,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999491678174471,
+          "max_abs": 0.07061576843261719,
+          "passed": true
+        },
+        {
+          "index": 11,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999805541918173,
+          "max_abs": 0.10271835327148438,
+          "passed": true
+        },
+        {
+          "index": 12,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999828969764978,
+          "max_abs": 0.1076202392578125,
+          "passed": true
+        },
+        {
+          "index": 13,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999778317071852,
+          "max_abs": 0.1243438720703125,
+          "passed": true
+        },
+        {
+          "index": 14,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999693617502489,
+          "max_abs": 0.1060953140258789,
+          "passed": true
+        },
+        {
+          "index": 15,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999437263241047,
+          "max_abs": 0.23463821411132812,
+          "passed": true
+        },
+        {
+          "index": 16,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999928592400071,
+          "max_abs": 0.17625045776367188,
+          "passed": true
+        },
+        {
+          "index": 17,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999896534057134,
+          "max_abs": 0.19561004638671875,
+          "passed": true
+        },
+        {
+          "index": 18,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999924740131562,
+          "max_abs": 0.23798751831054688,
+          "passed": true
+        },
+        {
+          "index": 19,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999909590481253,
+          "max_abs": 0.2668914794921875,
+          "passed": true
+        },
+        {
+          "index": 20,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999903044736981,
+          "max_abs": 0.25518798828125,
+          "passed": true
+        },
+        {
+          "index": 21,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999888239210112,
+          "max_abs": 0.2767791748046875,
+          "passed": true
+        },
+        {
+          "index": 22,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999871956432663,
+          "max_abs": 0.2394561767578125,
+          "passed": true
+        },
+        {
+          "index": 23,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999647645573495,
+          "max_abs": 0.17186450958251953,
+          "passed": true
+        }
+      ],
+      "final_embedding": {
+        "finite": true,
+        "cosine_min_hidden_rows": 0.9999850291519765,
+        "max_abs": 0.000793948769569397,
+        "passed": true
+      }
+    },
+    {
+      "index": 2,
+      "layers": [
+        {
+          "index": 0,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999941931818596,
+          "max_abs": 0.01400899887084961,
+          "passed": true
+        },
+        {
+          "index": 1,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999838873228797,
+          "max_abs": 0.013496875762939453,
+          "passed": true
+        },
+        {
+          "index": 2,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999728827283939,
+          "max_abs": 0.018177390098571777,
+          "passed": true
+        },
+        {
+          "index": 3,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999726104594476,
+          "max_abs": 0.028973817825317383,
+          "passed": true
+        },
+        {
+          "index": 4,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999719770589922,
+          "max_abs": 0.03941452503204346,
+          "passed": true
+        },
+        {
+          "index": 5,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999556501251617,
+          "max_abs": 0.07627320289611816,
+          "passed": true
+        },
+        {
+          "index": 6,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999953051799902,
+          "max_abs": 0.08939743041992188,
+          "passed": true
+        },
+        {
+          "index": 7,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999896986557384,
+          "max_abs": 0.0987091064453125,
+          "passed": true
+        },
+        {
+          "index": 8,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999862079623462,
+          "max_abs": 0.09978866577148438,
+          "passed": true
+        },
+        {
+          "index": 9,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999608391144986,
+          "max_abs": 0.093597412109375,
+          "passed": true
+        },
+        {
+          "index": 10,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999956148334525,
+          "max_abs": 0.068023681640625,
+          "passed": true
+        },
+        {
+          "index": 11,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999866703995716,
+          "max_abs": 0.07831573486328125,
+          "passed": true
+        },
+        {
+          "index": 12,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999869221420276,
+          "max_abs": 0.07875823974609375,
+          "passed": true
+        },
+        {
+          "index": 13,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999982581743362,
+          "max_abs": 0.08850860595703125,
+          "passed": true
+        },
+        {
+          "index": 14,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999776839408873,
+          "max_abs": 0.10212135314941406,
+          "passed": true
+        },
+        {
+          "index": 15,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999700737283067,
+          "max_abs": 0.15633201599121094,
+          "passed": true
+        },
+        {
+          "index": 16,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999950912210488,
+          "max_abs": 0.14228057861328125,
+          "passed": true
+        },
+        {
+          "index": 17,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999909559319968,
+          "max_abs": 0.18731689453125,
+          "passed": true
+        },
+        {
+          "index": 18,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999924787344744,
+          "max_abs": 0.1968994140625,
+          "passed": true
+        },
+        {
+          "index": 19,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999897717695624,
+          "max_abs": 0.21915054321289062,
+          "passed": true
+        },
+        {
+          "index": 20,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999882965816126,
+          "max_abs": 0.243560791015625,
+          "passed": true
+        },
+        {
+          "index": 21,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999852937145485,
+          "max_abs": 0.24420547485351562,
+          "passed": true
+        },
+        {
+          "index": 22,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999836718241915,
+          "max_abs": 0.19505691528320312,
+          "passed": true
+        },
+        {
+          "index": 23,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.999956449877047,
+          "max_abs": 0.13315868377685547,
+          "passed": true
+        }
+      ],
+      "final_embedding": {
+        "finite": true,
+        "cosine_min_hidden_rows": 0.9999874944930135,
+        "max_abs": 0.000627562403678894,
+        "passed": true
+      }
+    },
+    {
+      "index": 3,
+      "layers": [
+        {
+          "index": 0,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999943356321871,
+          "max_abs": 0.016345977783203125,
+          "passed": true
+        },
+        {
+          "index": 1,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999837629934024,
+          "max_abs": 0.011846542358398438,
+          "passed": true
+        },
+        {
+          "index": 2,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999787563954761,
+          "max_abs": 0.017667114734649658,
+          "passed": true
+        },
+        {
+          "index": 3,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999705843069132,
+          "max_abs": 0.03122258186340332,
+          "passed": true
+        },
+        {
+          "index": 4,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999704916070072,
+          "max_abs": 0.04610252380371094,
+          "passed": true
+        },
+        {
+          "index": 5,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999599179921466,
+          "max_abs": 0.057564616203308105,
+          "passed": true
+        },
+        {
+          "index": 6,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999957521924953,
+          "max_abs": 0.08670425415039062,
+          "passed": true
+        },
+        {
+          "index": 7,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999904865398168,
+          "max_abs": 0.09543609619140625,
+          "passed": true
+        },
+        {
+          "index": 8,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999857830488503,
+          "max_abs": 0.10584259033203125,
+          "passed": true
+        },
+        {
+          "index": 9,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999620695219936,
+          "max_abs": 0.11336898803710938,
+          "passed": true
+        },
+        {
+          "index": 10,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999563715901215,
+          "max_abs": 0.07861900329589844,
+          "passed": true
+        },
+        {
+          "index": 11,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999880031949688,
+          "max_abs": 0.08618545532226562,
+          "passed": true
+        },
+        {
+          "index": 12,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999871730631443,
+          "max_abs": 0.08561134338378906,
+          "passed": true
+        },
+        {
+          "index": 13,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999824660340296,
+          "max_abs": 0.10780715942382812,
+          "passed": true
+        },
+        {
+          "index": 14,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999729449555793,
+          "max_abs": 0.10818099975585938,
+          "passed": true
+        },
+        {
+          "index": 15,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999669610852354,
+          "max_abs": 0.1485595703125,
+          "passed": true
+        },
+        {
+          "index": 16,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999942237974647,
+          "max_abs": 0.14617156982421875,
+          "passed": true
+        },
+        {
+          "index": 17,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999899914760076,
+          "max_abs": 0.19187164306640625,
+          "passed": true
+        },
+        {
+          "index": 18,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999914356090169,
+          "max_abs": 0.1956634521484375,
+          "passed": true
+        },
+        {
+          "index": 19,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999889720574046,
+          "max_abs": 0.20917892456054688,
+          "passed": true
+        },
+        {
+          "index": 20,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999877121531386,
+          "max_abs": 0.229339599609375,
+          "passed": true
+        },
+        {
+          "index": 21,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999846453927238,
+          "max_abs": 0.22721481323242188,
+          "passed": true
+        },
+        {
+          "index": 22,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999826569562682,
+          "max_abs": 0.19821929931640625,
+          "passed": true
+        },
+        {
+          "index": 23,
+          "finite": true,
+          "cosine_min_hidden_rows": 0.9999446902386547,
+          "max_abs": 0.11486625671386719,
+          "passed": true
+        }
+      ],
+      "final_embedding": {
+        "finite": true,
+        "cosine_min_hidden_rows": 0.9999875036177305,
+        "max_abs": 0.0005913227796554565,
+        "passed": true
+      }
+    }
+  ],
+  "passed": true,
+  "head": {
+    "finite": true,
+    "max_abs_probability_diff": 0.00021964311599731445,
+    "labels_agree": true,
+    "original_probabilities": [
+      [
+        0.6689824461936951,
+        0.33101749420166016
+      ]
+    ],
+    "actual_probabilities": [
+      [
+        0.6692020893096924,
+        0.33079794049263
+      ]
+    ],
+    "passed": true
+  }
+}
