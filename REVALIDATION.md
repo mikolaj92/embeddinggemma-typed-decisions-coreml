@@ -16,8 +16,8 @@ Requested2026-10-14: revalidate every level16k→32k→64k→128k without replac
 
 | Size | Existing evidence | New revalidation | Deployment |
 |---|---|---|---|
-|16k|FP32 embedding parity; CoreML repeated-input cosine0.99999565, warm~37.5s, cold~94min; raw false-safe failure; structured pair narrowly correct FP32|Package+checkpoint files byte-equal export verified; actualCoreML four-state original-head probe remotely active|NOT approved|
-|32k|Only algebraic resource/position bounds; no full model result|New memory-bounded CPU schedule required before run|NOT approved|
+|16k|FP32 embedding parity; CoreML repeated-input cosine0.99999565, warm~37.5s, cold~94min; raw false-safe failure; structured pair narrowly correct FP32|Package+checkpoint files byte-equal export verified. New boundedFP32 full8case run completed: raw3/6, structured2/2, total5/8truth; all three raw unsafe false-safe. Same-ID oldtiled16k embedding maxabs0, finalcase repeat/head difference0. CPU2threads ~21.7–22.3s/state, peak4.03GiB includingoldpilotcomparison. ActualCoreML four-state probe remotely active|NOT approved|
+|32k|Only algebraic resource/position bounds; no full model result|New boundedFP32 schedule validated native512/1024 and16k;32k8case run started with mandatory preceding report/identity/resource gates|NOT approved|
 |64k|Only algebraic resource/position bounds; no full model result|Pending earlier bounded scheduler validation+resourcepreflight|NOT approved|
 |128k|Currentreuse persistentinput+working minimum>17.5GiB, unsafe on16GiB Mini|Needs separately validated boundedownership/masks/PLE; no hardware approval|NOT approved|
 
